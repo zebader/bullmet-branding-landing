@@ -31,13 +31,13 @@ const main = () => {
   const components = new function() {
     this.sectionBrHeader = 
     `
-    <section class="br-header">
+    <section class="br-header animation-start-app">
       <img src="img/bullmet.png" alt="">
     </section>
     `
     this.sectionBrSwiper = 
     `
-    <section class="br-swiper">
+    <section class="br-swiper animation-start-app">
       <h1>Descubre nuestros productos</h1>
       <img src="img/swiper-placeholder.PNG" alt="" style="width:75%;">
     </section>
@@ -45,7 +45,7 @@ const main = () => {
     this.sectionBrHystoryMainContent = 
     `
     <article class="br-history-full-img"></article>
-    <article class="br-history-ctnt">
+    <article class="br-history-ctnt animation-start-app">
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ligula dolor, mattis ut ornare vel,
         commodo sed tortor. Ut sed sapien dui. Interdum et malesuada fames ac ante ipsum primis in faucibus.
@@ -121,7 +121,7 @@ const main = () => {
     `
     this.sectionBrHistory = 
     `
-    <section class="br-history">
+    <section class="br-history animation-start-app">
       <h1>Conoce nuestra historia</h1>
       ${this.sectionBrHystoryMainContent}
       ${this.sectionBrHystorySecondaryContent}
