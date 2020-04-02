@@ -8,6 +8,12 @@ const myImages = [
   'img/history-c3.jpg',
   'img/history-c1.jpg',
   'img/history-header.jpg',
+  'img/product-1.png',
+  'img/product-2.png',
+  'img/product-3.png',
+  'img/product-4.png',
+  'img/product-5.png',
+  'img/product-6.png',
 ];
 
 const loadImages =  async function(imageUrlArray) {
@@ -34,14 +40,14 @@ const main = () => {
     <section class="br-header animation-start-app">
       <img src="img/bullmet.png" alt="">
     </section>
-    `
+    `;
     this.sectionBrSwiper = 
     `
     <section class="br-swiper animation-start-app">
       <h1>Descubre nuestros productos</h1>
-      <img src="img/swiper-placeholder.PNG" alt="" style="width:75%;">
+      <article class="br-swiper-container"></article>
     </section>
-    `
+    `;
     this.sectionBrHystoryMainContent = 
     `
     <article class="br-history-full-img"></article>
@@ -67,7 +73,7 @@ const main = () => {
         Aliquam neque lacus, mollis nec est a, luctus mollis augue. Nullam dapibus nec diam ac pulvinar.
       </p>
     </article>
-    `
+    `;
     this.sectionBrHystorySecondaryImages = 
     `
     <article class="br-history-se-ctnt-block-img-container">
@@ -84,7 +90,7 @@ const main = () => {
         <img src="img/history-c4.jpg" alt="">
       </article>
     </article>
-    `
+    `;
     this.sectionBrHystorySecondaryTexts = 
     `
     <article class="br-history-se-ctnt-block">
@@ -111,14 +117,14 @@ const main = () => {
         </p>
       </article>
     </article>
-    `
+    `;
     this.sectionBrHystorySecondaryContent = 
     `
     <article class="br-history-se-ctnt">
     ${this.sectionBrHystorySecondaryImages}
     ${this.sectionBrHystorySecondaryTexts}
     </article>
-    `
+    `;
     this.sectionBrHistory = 
     `
     <section class="br-history animation-start-app">
@@ -126,7 +132,7 @@ const main = () => {
       ${this.sectionBrHystoryMainContent}
       ${this.sectionBrHystorySecondaryContent}
     </section>
-    `
+    `;
   }
 
   const templates = new function() {
@@ -136,7 +142,8 @@ const main = () => {
     ${components.sectionBrHeader}
     ${components.sectionBrSwiper}
     ${components.sectionBrHistory}
-`;
+    `;
+    
     this.initMainTemplate = () => {
       document.querySelector('main').innerHTML = this.main;
     };
@@ -150,33 +157,40 @@ const main = () => {
 
   const selectors = new function () {
     this.page = document.querySelector('body');
+    this.brSwiper = this.page.querySelector('.br-swiper');
+    this.brSwiperContainer = this.brSwiper.querySelector('.br-swiper-container');    
   };
 
   const model = new function(){
-    this.windowWidth = window.screen.availWidth;
+    this.swiperMainPosition = 0;
   };
 
   const view = new function() {
-    this.createItem = () => {
-      const item = document.createElement("div");
-      item.classList.add('nefelibata-item')
-      item.style.top = `${ (Math.random() * Math.floor(model.windowHeight - 250))}px`;
-      item.style.left = `${(Math.random() * 90) }%`;
-      item.style.backgroundImage = `url(img/${Math.floor(1 + (Math.random()*model.numberOfImages))}.jpg)`
-      item.addEventListener('mousedown', events.removeNefelibata);
-      return item
+    this.createProduct = () => {
+      const product = document.createElement("div");
+      product.classList.add('default')
+      return product
+    };
+    this.getProductList = (allImages) => {
+      return allImages.filter(img => img.includes('product'));
+    }
+    this.createProductList = () => {
+      const productList = this.getProductList(myImages)
+      productList.forEach((product) => {
+        const newImg = new Image();
+        newImg.setAttribute('src', product)
+        const newProduct = this.createProduct().appendChild(newImg)
+        selectors.brSwiperContainer.appendChild(newProduct);
+      })
     };
   };
 
   const events = new function() {
-    this.startNefelibata = (event) => {
-      selectors.startscreenContainer.style.display = "none";
-      view.addNumberOfItems(5);
-      model.startInterval = setInterval(view.intervalNefelibata, model.interval);
-      selectors.handBlur.classList.remove('animation-hand-start');
-      selectors.handBlur.classList.add('animation-hand-main');
+    this.start = (event) => {
     };
   };
+
+  view.createProductList();
 
 };
 
