@@ -93,6 +93,15 @@ section.br-header{
   background-position: center;
   background-size: cover;
 }
+article.br-swiper-container{
+  overflow: hidden;
+}
+div.default {
+  width: 50%;
+}
+div.default img{
+  width: 100%;
+}
 section.br-history{
   position: relative;
   padding-top: 50px;

@@ -166,9 +166,10 @@ const main = () => {
   };
 
   const view = new function() {
-    this.createProduct = () => {
+    this.createProduct = (img) => {
       const product = document.createElement("div");
       product.classList.add('default')
+      product.appendChild(img)
       return product
     };
     this.getProductList = (allImages) => {
@@ -178,8 +179,8 @@ const main = () => {
       const productList = this.getProductList(myImages)
       productList.forEach((product) => {
         const newImg = new Image();
-        newImg.setAttribute('src', product)
-        const newProduct = this.createProduct().appendChild(newImg)
+        newImg.setAttribute('src', product);
+        const newProduct = this.createProduct(newImg);
         selectors.brSwiperContainer.appendChild(newProduct);
       })
     };
