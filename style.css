@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat|Playfair+Display:700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,700|Playfair+Display&display=swap');
 *{
   margin: 0;
 	padding: 0;
@@ -8,6 +8,7 @@
   vertical-align: baseline;
   color: #020049;
   font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
   text-align: center;
 }
 h1{
@@ -15,18 +16,24 @@ h1{
   margin: 30px;
   background-color: white;
   padding:20px;
+  font-family: 'Playfair Display', serif;
+  display: table;
+  
 }
 h2{
   font-size: 1.5em;
   margin: 30px;
   background-color: white;
   padding:20px;
+  font-family: 'Playfair Display', serif;
+  display: table;
 }
 p{
   font-size: 1em;
   text-align: left;
   margin: 30px;
   padding:20px;
+  line-height: 1.5;
 }
 button {
   border: none;
@@ -88,9 +95,9 @@ section.br-history{
 section.br-history h1{
   margin: 0;
   position: absolute;
-  border-radius: 5px;
   top: 0px;
   left: 50%;
+  border-radius: 5px;
   transform: translateX(-50%) skewX(-5deg);
   box-shadow: 5px 5px 0px 0px rgb(244, 244, 255);
 }
@@ -103,8 +110,10 @@ article.br-history-full-img{
   width: 100%;
 }
 article.br-history-ctnt{
-  background: #020049;
+  background: #020049 url(img/wood-texture.png);
   width: 100%;
+  background-repeat: repeat;
+  background-size: contain;
 }
 article.br-history-ctnt p{
   max-width: 1200px;
@@ -172,31 +181,36 @@ footer {
   background-color: #020049;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 950px) {
+  article.br-history-se-ctnt-block-img-container {
+    flex-wrap: wrap;
+  }
+  article.br-history-se-ctnt-block-img {
+    width: 50%;
+  }
   article.br-history-se-ctnt-block{
     flex-direction: column;
     width: 100%;
-}
+  }
 }
 
-@media (max-width: 750px) {
+@media (max-width: 650px) {
   p {
-      font-size: 1em;
-      text-align: left;
-      margin: 30px 5%;
-      padding: 0px
+    font-size: 1em;
+    text-align: left;
+    margin: 30px 5%;
+    padding: 0px
   }
   article {
-      width: 100%;
+    width: 100%;
   }
   article.br-history-ctnt p{
     width: 100%;
   }
+  article.br-history-se-ctnt-block-img {
+    width: 100%;
+  }
   article.br-history-se-ctnt{
-      flex-direction: column;
+    flex-direction: column;
   }
-  article.br-history-se-ctnt-block-img-container {
-      flex-wrap: wrap;
-  }
-
 }
