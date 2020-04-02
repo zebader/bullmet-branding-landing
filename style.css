@@ -11,6 +11,12 @@
   font-weight: 300;
   text-align: center;
 }
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
 h1{
   font-size: 2em;
   margin: 30px;
@@ -31,7 +37,6 @@ h2{
 p{
   font-size: 1em;
   text-align: left;
-  margin: 30px;
   padding:20px;
   line-height: 1.5;
 }
@@ -110,10 +115,10 @@ article.br-history-full-img{
   width: 100%;
 }
 article.br-history-ctnt{
-  background: #020049 url(img/wood-texture.png);
+  flex-direction: column;
+  background: #020049;
   width: 100%;
-  background-repeat: repeat;
-  background-size: contain;
+  padding: 30px 0px;
 }
 article.br-history-ctnt p{
   max-width: 1200px;
@@ -175,6 +180,7 @@ article.br-history-se-ctnt-block-text p{
   background-color: white;
   border-radius: 30px;
   padding: 75px 40px 40px 40px;
+  margin: 30px;
 }
 footer {
   height: 50px;
@@ -195,17 +201,11 @@ footer {
 }
 
 @media (max-width: 650px) {
-  p {
-    font-size: 1em;
-    text-align: left;
-    margin: 30px 5%;
-    padding: 0px
-  }
   article {
     width: 100%;
   }
   article.br-history-ctnt p{
-    width: 100%;
+    width: 90%;
   }
   article.br-history-se-ctnt-block-img {
     width: 100%;
