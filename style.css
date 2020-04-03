@@ -115,6 +115,7 @@ article.br-swiper-wrapper{
   z-index: 1;
   justify-content: flex-start;
   box-sizing: content-box;
+  transition: left 300ms ease-in-out;
 }
 div.default {
   flex-shrink: 0;

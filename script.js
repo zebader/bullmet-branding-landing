@@ -241,7 +241,7 @@ const main = () => {
     };
     this.onPrevious = (e) => {
       view.cleanClassAndEvents();
-
+      const previousLeft = parseFloat(selectors.brSwiperWrapper.style.left);
       selectors.brSwiperNext = selectors.brSwiperFocus;
       selectors.brSwiperNext.classList.add('next');
       selectors.brSwiperNext.addEventListener('click', events.onNext);
@@ -254,10 +254,11 @@ const main = () => {
         selectors.brSwiperPrev.classList.add('prev');
         selectors.brSwiperPrev.addEventListener('click', events.onPrevious);
       }
+      selectors.brSwiperWrapper.style.left = `${ previousLeft + model.productWidth}px`;
     };
     this.onNext = (e) => {
       view.cleanClassAndEvents();
-
+      const previousLeft = parseFloat(selectors.brSwiperWrapper.style.left);
       selectors.brSwiperPrev = selectors.brSwiperFocus;
       selectors.brSwiperPrev.classList.add('prev');
       selectors.brSwiperPrev.addEventListener('click', events.onPrevious);
@@ -266,9 +267,10 @@ const main = () => {
       selectors.brSwiperFocus.classList.add('focus');
       if(e.target.nextSibling) {
         selectors.brSwiperNext = e.target.nextSibling;
-        selectors.brSwiperNext.classList.add('Next');
+        selectors.brSwiperNext.classList.add('next');
         selectors.brSwiperNext.addEventListener('click', events.onNext);
       }
+      selectors.brSwiperWrapper.style.left = `${ previousLeft - model.productWidth}px`;
     };
   };
 
