@@ -45,7 +45,9 @@ const main = () => {
     `
     <section class="br-swiper animation-start-app">
       <h1>Descubre nuestros productos</h1>
-      <article class="br-swiper-container"></article>
+      <article class="br-swiper-container">
+        <article class="br-swiper-wrapper"></article>
+      </article>
     </section>
     `;
     this.sectionBrHystoryMainContent = 
@@ -159,17 +161,23 @@ const main = () => {
     this.page = document.querySelector('body');
     this.brSwiper = this.page.querySelector('.br-swiper');
     this.brSwiperContainer = this.brSwiper.querySelector('.br-swiper-container');    
+    this.brSwiperWrapper = this.brSwiper.querySelector('.br-swiper-wrapper');    
   };
 
   const model = new function(){
     this.swiperMainPosition = 0;
+    this.containerWidth = 0;
+    this.productWidth = 0;
+    this.productList = [];
   };
 
   const view = new function() {
     this.createProduct = (img) => {
       const product = document.createElement("div");
       product.classList.add('default')
-      product.appendChild(img)
+      const link = document.createElement("a");
+      product.appendChild(link)
+      link.appendChild(img)
       return product
     };
     this.getProductList = (allImages) => {
@@ -181,17 +189,31 @@ const main = () => {
         const newImg = new Image();
         newImg.setAttribute('src', product);
         const newProduct = this.createProduct(newImg);
-        selectors.brSwiperContainer.appendChild(newProduct);
-      })
+        selectors.brSwiperWrapper.appendChild(newProduct);
+      });
+      this.setProductElements();
+      this.setProductWidth();
+    };
+    this.setProductElements = () => {
+      model.productList = [...document.querySelectorAll('.default')];
+    }
+    this.setProductWidth = () => {
+      model.containerWidth = selectors.brSwiperContainer.offsetWidth
+      model.productWidth = `${(model.containerWidth / 5)}px`
+      model.productList.forEach((product) => {
+        product.style.width = model.productWidth
+      });
     };
   };
 
   const events = new function() {
-    this.start = (event) => {
+    this.resizeProduct = () => {
+      view.setProductWidth();
     };
   };
 
   view.createProductList();
+  window.addEventListener('resize', events.resizeProduct);
 
 };
 
