@@ -161,7 +161,10 @@ const main = () => {
     this.page = document.querySelector('body');
     this.brSwiper = this.page.querySelector('.br-swiper');
     this.brSwiperContainer = this.brSwiper.querySelector('.br-swiper-container');    
-    this.brSwiperWrapper = this.brSwiper.querySelector('.br-swiper-wrapper');    
+    this.brSwiperWrapper = this.brSwiper.querySelector('.br-swiper-wrapper');
+    this.brSwiperFocus; 
+    this.brSwiperNext; 
+    this.brSwiperPrev;     
   };
 
   const model = new function(){
@@ -208,11 +211,24 @@ const main = () => {
     this.setStartingPosition = () => {
       const centralPosition = Math.ceil(model.productList.length / 2);
       const swiperPosition = Math.ceil((model.productList.length - model.productsToShow) / 2);
-      model.productList[centralPosition].classList.add('focus');
-      model.productList[centralPosition - 1].classList.add('prev');
-      model.productList[centralPosition + 1].classList.add('next')
+      selectors.brSwiperFocus = model.productList[centralPosition];
+      selectors.brSwiperPrev = model.productList[centralPosition - 1];
+      selectors.brSwiperPrev.addEventListener('click', events.onPrevious);
+      selectors.brSwiperNext = model.productList[centralPosition + 1];
+      selectors.brSwiperNext.addEventListener('click', events.onNext);
+      selectors.brSwiperFocus.classList.add('focus');
+      selectors.brSwiperPrev.classList.add('prev');      
+      selectors.brSwiperNext.classList.add('next');
       selectors.brSwiperWrapper.style.left = `-${model.productWidth * swiperPosition}px`;
       };
+    this.cleanClassAndEvents = () => {
+      selectors.brSwiperNext.removeEventListener('click', events.onNext);
+      selectors.brSwiperPrev.removeEventListener('click', events.onPrevious);
+
+      selectors.brSwiperNext.classList.remove('next');
+      selectors.brSwiperPrev.classList.remove('prev');
+      selectors.brSwiperFocus.classList.remove('focus');
+    }
     };
 
   const events = new function() {
@@ -222,6 +238,37 @@ const main = () => {
       view.setProductWidth();
       const reducctionFactor = previousWidth / model.productWidth;
       selectors.brSwiperWrapper.style.left = `${ previousLeft / reducctionFactor}px`;
+    };
+    this.onPrevious = (e) => {
+      view.cleanClassAndEvents();
+
+      selectors.brSwiperNext = selectors.brSwiperFocus;
+      selectors.brSwiperNext.classList.add('next');
+      selectors.brSwiperNext.addEventListener('click', events.onNext);
+      
+      selectors.brSwiperFocus = e.target;
+      selectors.brSwiperFocus.classList.add('focus');
+
+      if(e.target.previousSibling) {
+        selectors.brSwiperPrev = e.target.previousSibling;
+        selectors.brSwiperPrev.classList.add('prev');
+        selectors.brSwiperPrev.addEventListener('click', events.onPrevious);
+      }
+    };
+    this.onNext = (e) => {
+      view.cleanClassAndEvents();
+
+      selectors.brSwiperPrev = selectors.brSwiperFocus;
+      selectors.brSwiperPrev.classList.add('prev');
+      selectors.brSwiperPrev.addEventListener('click', events.onPrevious);
+      
+      selectors.brSwiperFocus = e.target;
+      selectors.brSwiperFocus.classList.add('focus');
+      if(e.target.nextSibling) {
+        selectors.brSwiperNext = e.target.nextSibling;
+        selectors.brSwiperNext.classList.add('Next');
+        selectors.brSwiperNext.addEventListener('click', events.onNext);
+      }
     };
   };
 
