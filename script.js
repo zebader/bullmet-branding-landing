@@ -8,6 +8,7 @@ const myImages = [
   'img/history-c3.jpg',
   'img/history-c1.jpg',
   'img/history-header.jpg',
+  'img/next.svg',
   'img/product-1.png',
   'img/product-2.png',
   'img/product-3.png',
@@ -23,6 +24,15 @@ const productUrls = [
   'https://dribbble.com/shots/10863887-Playstation-5-User-Interface-Concept',
   'https://dribbble.com/shots/10842002-Squatchin-Character-Design',
   'https://dribbble.com/shots/10821781-Ruckus-Racoon-is-Back',
+];
+
+const productInfo = [
+  'Chivas product 1',
+  'Chivas product 2',
+  'Chivas product 3',
+  'Chivas product 4',
+  'Chivas product 5',
+  'Chivas product 6',
 ];
 
 const loadImages =  async function(imageUrlArray) {
@@ -50,12 +60,24 @@ const main = () => {
       <img src="img/bullmet.png" alt="">
     </section>
     `;
+    this.sectionBrSwiperControllers = 
+    `
+      <div class="left-button"></div>
+      <div class="right-button"></div>
+    `;
     this.sectionBrSwiper = 
     `
     <section class="br-swiper animation-start-app">
       <h1>Descubre nuestros productos</h1>
       <article class="br-swiper-container">
+        ${this.sectionBrSwiperControllers}
         <article class="br-swiper-wrapper"></article>
+        <article class="br-swipe-product-info">
+          <p></p>
+          <a target="_blank">
+            <button>COMPRAR</button>
+          </a>
+        </article>
       </article>
     </section>
     `;
@@ -170,7 +192,11 @@ const main = () => {
     this.page = document.querySelector('body');
     this.brSwiper = this.page.querySelector('.br-swiper');
     this.brSwiperContainer = this.brSwiper.querySelector('.br-swiper-container');    
-    this.brSwiperWrapper = this.brSwiper.querySelector('.br-swiper-wrapper');
+    this.brSwiperLeftButton = this.brSwiperContainer.querySelector('.left-button');    
+    this.brSwiperRightButton = this.brSwiperContainer.querySelector('.right-button');    
+    this.brSwiperWrapper = this.brSwiperContainer.querySelector('.br-swiper-wrapper');
+    this.brSwiperProductInfo = this.brSwiperContainer.querySelector('.br-swipe-product-info p');
+    this.brSwiperProductCTA = this.brSwiperContainer.querySelector('.br-swipe-product-info a');
     this.brSwiperFocus; 
     this.brSwiperNext; 
     this.brSwiperPrev;     
@@ -182,18 +208,20 @@ const main = () => {
     this.productWidth = 0;
     this.productsToShow = 5;
     this.productList = [];
+    this.lockPosition = 0;
   };
 
   const view = new function() {
-    this.createProduct = (img, position, productLink) => {
+    this.createProduct = (img, position, productLink, productInfo) => {
       const product = document.createElement("div");
       product.classList.add('default');
       product.setAttribute('data-list', position);
+      product.setAttribute('data-product', productInfo);
       const link = document.createElement("a");
       link.setAttribute('href', productLink);
       link.setAttribute('target', "_blank");
-      product.appendChild(link)
-      link.appendChild(img)
+      product.appendChild(link);
+      link.appendChild(img);
       return product
     };
     this.getProductList = (allImages) => {
@@ -205,7 +233,7 @@ const main = () => {
       productList.forEach((product, index) => {
         const newImg = new Image();
         newImg.setAttribute('src', product);
-        const newProduct = this.createProduct(newImg, index, productUrls[index]);
+        const newProduct = this.createProduct(newImg, index, productUrls[index], productInfo[index]);
         selectors.brSwiperWrapper.appendChild(newProduct);
       });
       this.setProductElements();
@@ -233,11 +261,17 @@ const main = () => {
       selectors.brSwiperPrev.classList.add('prev');      
       selectors.brSwiperNext.classList.add('next');
       selectors.brSwiperWrapper.style.left = `-${model.productWidth * swiperPosition}px`;
+      this.createProductCTA(selectors.brSwiperFocus)
+    };
+    this.createProductCTA = (selector) => {
+      const productInfo = selector.getAttribute('data-product');
+      const productLink = selector.querySelector('a').getAttribute('href');
+      selectors.brSwiperProductInfo.innerHTML = productInfo;
+      selectors.brSwiperProductCTA.setAttribute('href', productLink );
     };
     this.cleanClassAndEvents = () => {
       selectors.brSwiperNext.removeEventListener('click', events.onNext);
       selectors.brSwiperPrev.removeEventListener('click', events.onPrevious);
-
       selectors.brSwiperNext.classList.remove('next');
       selectors.brSwiperPrev.classList.remove('prev');
       selectors.brSwiperFocus.classList.remove('focus');
@@ -247,7 +281,6 @@ const main = () => {
       direction === 'left' && (selectors.brSwiperWrapper.style.left = `${ previousLeft - model.productWidth}px`);
       direction === 'right' && (selectors.brSwiperWrapper.style.left = `${ previousLeft + model.productWidth}px`);
     };
-
   };
 
   const events = new function() {
@@ -258,42 +291,66 @@ const main = () => {
       const reducctionFactor = previousWidth / model.productWidth;
       selectors.brSwiperWrapper.style.left = `${ previousLeft / reducctionFactor}px`;
     };
-    this.onPrevious = (e) => {
-      view.cleanClassAndEvents();
-      selectors.brSwiperNext = selectors.brSwiperFocus;
-      selectors.brSwiperNext.classList.add('next');
-      selectors.brSwiperNext.addEventListener('click', events.onNext);
-      
-      selectors.brSwiperFocus = e.target;
-      selectors.brSwiperFocus.classList.add('focus');
-
-      if(e.target.previousSibling) {
-        selectors.brSwiperPrev = e.target.previousSibling;
-        selectors.brSwiperPrev.classList.add('prev');
-        selectors.brSwiperPrev.addEventListener('click', events.onPrevious);
+    this.onPrevious = () => {
+      if(selectors.brSwiperFocus.previousSibling){
+        view.cleanClassAndEvents();
+        selectors.brSwiperNext = selectors.brSwiperFocus;
+        selectors.brSwiperNext.classList.add('next');
+        selectors.brSwiperNext.addEventListener('click', events.onNext);
+        
+        selectors.brSwiperFocus = selectors.brSwiperPrev;
+        selectors.brSwiperFocus.classList.add('focus');
+        view.createProductCTA(selectors.brSwiperFocus);
+  
+        if(selectors.brSwiperPrev.previousSibling) {
+          selectors.brSwiperPrev = selectors.brSwiperPrev.previousSibling;
+          selectors.brSwiperPrev.classList.add('prev');
+          selectors.brSwiperPrev.addEventListener('click', events.onPrevious);
+        }
+        view.swipeOne('right');
       }
-      view.swipeOne('right');
     };
-    this.onNext = (e) => {
+    this.onNext = () => {
+      if(selectors.brSwiperFocus.nextSibling){
       view.cleanClassAndEvents();
       selectors.brSwiperPrev = selectors.brSwiperFocus;
       selectors.brSwiperPrev.classList.add('prev');
       selectors.brSwiperPrev.addEventListener('click', events.onPrevious);
       
-      selectors.brSwiperFocus = e.target;
+      selectors.brSwiperFocus = selectors.brSwiperNext;
       selectors.brSwiperFocus.classList.add('focus');
-      if(e.target.nextSibling) {
-        selectors.brSwiperNext = e.target.nextSibling;
+      view.createProductCTA(selectors.brSwiperFocus)
+
+      if(selectors.brSwiperNext.nextSibling) {
+        selectors.brSwiperNext = selectors.brSwiperNext.nextSibling;
         selectors.brSwiperNext.classList.add('next');
         selectors.brSwiperNext.addEventListener('click', events.onNext);
       }
       view.swipeOne('left');
+    }
     };
+    this.lock = (e) => {
+      model.lockPosition = this.unify(e).clientX;
+    };
+    this.move = (e) => {
+      if(model.lockPosition > this.unify(e).clientX) {
+        this.onNext();
+      } else if (model.lockPosition < this.unify(e).clientX) {
+        this.onPrevious();
+      }
+    };
+    this.unify = (e) => { return e.changedTouches ? e.changedTouches[0] : e };
   };
 
   view.createProductList();
   view.setStartingPosition();
   window.addEventListener('resize', events.resizeProductAndPosition);
+  selectors.brSwiperContainer.addEventListener('mousedown', events.lock);
+  selectors.brSwiperContainer.addEventListener('touchstart', events.lock);
+  selectors.brSwiperContainer.addEventListener('mouseup', events.move);
+  selectors.brSwiperContainer.addEventListener('touchend', events.move);
+  selectors.brSwiperLeftButton.addEventListener('click', events.onPrevious);
+  selectors.brSwiperRightButton.addEventListener('click', events.onNext);
 
 };
 

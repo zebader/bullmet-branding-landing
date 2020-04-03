@@ -64,6 +64,13 @@ button:hover{
 button:focus{
   outline: none;
 }
+img {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  }
 main {
   display: flex;
   flex-direction: column;
@@ -108,6 +115,31 @@ article.br-swiper-container{
     display: flex;
     flex-direction: column;
 }
+div.left-button, div.right-button {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  background-image: url('img/next.svg');
+  background-position: center;
+  background-size: cover;
+  z-index: 3;
+  cursor: pointer;
+  transition: all 100ms ease-in-out;
+}
+div.left-button{
+  transform: translateX(10px) rotate(180deg);
+  left: 0;
+}
+div.left-button:hover{
+  transform: translateX(10px) rotate(180deg) scale(1.1);
+}
+div.right-button:hover{
+  transform: translateX(-60px) scale(1.1);
+}
+div.right-button{
+  left:100%;
+  transform: translateX(-60px);
+}
 article.br-swiper-wrapper{
   position: relative;
   width: 100%;
@@ -115,7 +147,17 @@ article.br-swiper-wrapper{
   z-index: 1;
   justify-content: flex-start;
   box-sizing: content-box;
-  transition: left 300ms ease-in-out;
+  transition: left 200ms ease-in-out;
+}
+article.br-swipe-product-info{
+  flex-direction: column;
+}
+article.br-swipe-product-info button{
+  border: 1px solid;
+  padding: 15px 40px;
+}
+article.br-swipe-product-info button:hover{
+  transform:scale(1.1) translateY(-5px);
 }
 div.default {
   flex-shrink: 0;
@@ -125,7 +167,7 @@ div.default {
   transform: scale(.5);
   opacity: 0.5;
   transition: opacity 300ms ease-in-out,
-  transform 300ms ease-in-out ;
+  transform 300ms ease-in-out;
   cursor: pointer;
 }
 div.default a{
@@ -137,26 +179,39 @@ div.default img{
   width: 100%;
   align-self: flex-start;
 }
+
 div.focus {
   transform: scale(1);
   opacity: 1;
   transition: opacity 300ms ease-in-out,
-  transform 300ms ease-in-out ;
+  transform 300ms ease-in-out,
+  filter 200ms ease-in-out ;
 }
 div.focus a{
   pointer-events: all;
+}
+div.focus:hover {
+  filter: brightness(1.3);
 }
 div.prev {
   transform: scale(0.7) translateX(-10%);
   opacity: 0.7;
   transition: opacity 300ms ease-in-out,
-  transform 300ms ease-in-out ;
+  transform 300ms ease-in-out,
+  filter 200ms ease-in-out;
+}
+div.prev:hover {
+  filter: brightness(1.3);
 }
 div.next {
   transform: scale(0.7) translateX(10%);
   opacity: 0.7;
   transition: opacity 300ms ease-in-out,
-  transform 300ms ease-in-out ;
+  transform 300ms ease-in-out,
+  filter 200ms ease-in-out ;
+}
+div.next:hover {
+  filter: brightness(1.3);
 }
 section.br-history{
   position: relative;
