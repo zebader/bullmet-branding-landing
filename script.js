@@ -16,6 +16,15 @@ const myImages = [
   'img/product-6.png',
 ];
 
+const productUrls = [
+  'https://dribbble.com/shots/10881367-Monster-Kids-Sketch-WIP',
+  'https://dribbble.com/shots/10880032-Mixology-Animated-II',
+  'https://dribbble.com/shots/10866250-Spectre-Pizza-Cult-Leader',
+  'https://dribbble.com/shots/10863887-Playstation-5-User-Interface-Concept',
+  'https://dribbble.com/shots/10842002-Squatchin-Character-Design',
+  'https://dribbble.com/shots/10821781-Ruckus-Racoon-is-Back',
+];
+
 const loadImages =  async function(imageUrlArray) {
   const promiseArray = [];
   const imageArray = [];
@@ -176,10 +185,13 @@ const main = () => {
   };
 
   const view = new function() {
-    this.createProduct = (img) => {
+    this.createProduct = (img, position, productLink) => {
       const product = document.createElement("div");
-      product.classList.add('default')
+      product.classList.add('default');
+      product.setAttribute('data-list', position);
       const link = document.createElement("a");
+      link.setAttribute('href', productLink);
+      link.setAttribute('target', "_blank");
       product.appendChild(link)
       link.appendChild(img)
       return product
@@ -188,11 +200,12 @@ const main = () => {
       return allImages.filter(img => img.includes('product'));
     }
     this.createProductList = () => {
-      const productList = this.getProductList(myImages)
-      productList.forEach((product) => {
+      const productList = this.getProductList(myImages);
+      
+      productList.forEach((product, index) => {
         const newImg = new Image();
         newImg.setAttribute('src', product);
-        const newProduct = this.createProduct(newImg);
+        const newProduct = this.createProduct(newImg, index, productUrls[index]);
         selectors.brSwiperWrapper.appendChild(newProduct);
       });
       this.setProductElements();
@@ -220,7 +233,7 @@ const main = () => {
       selectors.brSwiperPrev.classList.add('prev');      
       selectors.brSwiperNext.classList.add('next');
       selectors.brSwiperWrapper.style.left = `-${model.productWidth * swiperPosition}px`;
-      };
+    };
     this.cleanClassAndEvents = () => {
       selectors.brSwiperNext.removeEventListener('click', events.onNext);
       selectors.brSwiperPrev.removeEventListener('click', events.onPrevious);
@@ -228,8 +241,14 @@ const main = () => {
       selectors.brSwiperNext.classList.remove('next');
       selectors.brSwiperPrev.classList.remove('prev');
       selectors.brSwiperFocus.classList.remove('focus');
-    }
     };
+    this.swipeOne = (direction) => {
+      const previousLeft = parseFloat(selectors.brSwiperWrapper.style.left);
+      direction === 'left' && (selectors.brSwiperWrapper.style.left = `${ previousLeft - model.productWidth}px`);
+      direction === 'right' && (selectors.brSwiperWrapper.style.left = `${ previousLeft + model.productWidth}px`);
+    };
+
+  };
 
   const events = new function() {
     this.resizeProductAndPosition = () => {
@@ -241,7 +260,6 @@ const main = () => {
     };
     this.onPrevious = (e) => {
       view.cleanClassAndEvents();
-      const previousLeft = parseFloat(selectors.brSwiperWrapper.style.left);
       selectors.brSwiperNext = selectors.brSwiperFocus;
       selectors.brSwiperNext.classList.add('next');
       selectors.brSwiperNext.addEventListener('click', events.onNext);
@@ -254,11 +272,10 @@ const main = () => {
         selectors.brSwiperPrev.classList.add('prev');
         selectors.brSwiperPrev.addEventListener('click', events.onPrevious);
       }
-      selectors.brSwiperWrapper.style.left = `${ previousLeft + model.productWidth}px`;
+      view.swipeOne('right');
     };
     this.onNext = (e) => {
       view.cleanClassAndEvents();
-      const previousLeft = parseFloat(selectors.brSwiperWrapper.style.left);
       selectors.brSwiperPrev = selectors.brSwiperFocus;
       selectors.brSwiperPrev.classList.add('prev');
       selectors.brSwiperPrev.addEventListener('click', events.onPrevious);
@@ -270,7 +287,7 @@ const main = () => {
         selectors.brSwiperNext.classList.add('next');
         selectors.brSwiperNext.addEventListener('click', events.onNext);
       }
-      selectors.brSwiperWrapper.style.left = `${ previousLeft - model.productWidth}px`;
+      view.swipeOne('left');
     };
   };
 

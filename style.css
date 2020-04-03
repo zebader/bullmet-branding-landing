@@ -126,12 +126,25 @@ div.default {
   opacity: 0.5;
   transition: opacity 300ms ease-in-out,
   transform 300ms ease-in-out ;
+  cursor: pointer;
+}
+div.default a{
+  height: 100%;
+  display: flex;
+  pointer-events: none;
+}
+div.default img{
+  width: 100%;
+  align-self: flex-start;
 }
 div.focus {
   transform: scale(1);
   opacity: 1;
   transition: opacity 300ms ease-in-out,
   transform 300ms ease-in-out ;
+}
+div.focus a{
+  pointer-events: all;
 }
 div.prev {
   transform: scale(0.7) translateX(-10%);
@@ -144,18 +157,6 @@ div.next {
   opacity: 0.7;
   transition: opacity 300ms ease-in-out,
   transform 300ms ease-in-out ;
-}
-div.focus a{
-  pointer-events: all;
-}
-div.default a{
-  height: 100%;
-  display: flex;
-  pointer-events: none;
-}
-div.default img{
-  width: 100%;
-  align-self: flex-start;
 }
 section.br-history{
   position: relative;
@@ -247,8 +248,28 @@ article.br-history-se-ctnt-block-text p{
   margin: 30px;
 }
 footer {
-  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
   background-color: #020049;
+  padding: 50px 0px;
+}
+footer p{
+  color: white;
+  font-size: 0.8em;
+  padding: 5px;
+  font-weight: 600;
+}
+footer a {
+  color: white;
+  font-size: 0.8em;
+  text-decoration: none;
+}
+footer img{
+  width: 120px;
 }
 
 @media (max-width: 950px) {
