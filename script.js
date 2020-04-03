@@ -281,15 +281,33 @@ const main = () => {
       direction === 'left' && (selectors.brSwiperWrapper.style.left = `${ previousLeft - model.productWidth}px`);
       direction === 'right' && (selectors.brSwiperWrapper.style.left = `${ previousLeft + model.productWidth}px`);
     };
+    this.resetClasses = () => {
+      model.productList.forEach((product) => {
+        product.removeEventListener('click', events.onNext);
+        product.removeEventListener('click', events.onPrevious);
+        product.classList.remove('focus');
+        product.classList.remove('prev');
+        product.classList.remove('next');
+      });
+    };
   };
 
   const events = new function() {
-    this.resizeProductAndPosition = () => {
+    this.resizeProductAndPosition = (e) => {
       const previousWidth = model.productWidth;
       const previousLeft = parseFloat(selectors.brSwiperWrapper.style.left);
       view.setProductWidth();
       const reducctionFactor = previousWidth / model.productWidth;
       selectors.brSwiperWrapper.style.left = `${ previousLeft / reducctionFactor}px`;
+      if(e.target.innerWidth < 750) {
+        view.resetClasses();
+        model.productsToShow = 3;
+        view.setStartingPosition()
+      } else {
+        view.resetClasses();
+        model.productsToShow = 5;
+        view.setStartingPosition()
+      };
     };
     this.onPrevious = () => {
       if(selectors.brSwiperFocus.previousSibling){

@@ -95,7 +95,9 @@ article {
   width: 75%;
   margin: 0 auto;
 }
-
+.loader {
+  animation: loading 4s infinite;
+}
 section.br-header{
   height: 50vh;
   background-image: url('img/header.jpg');
@@ -360,4 +362,12 @@ footer img{
 @keyframes start-app {
   0%   { opacity: 0; }
   100% { opacity: 1; }
+}
+.animation-loading {
+  animation: loading 4s infinite;
+}
+@keyframes loading {
+  0%   { transform:rotateY(0deg); }
+  50% { transform:rotateY(360deg); }
+  100% { transform:rotateY(0deg); }
 }
