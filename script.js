@@ -168,6 +168,7 @@ const main = () => {
     this.swiperMainPosition = 0;
     this.containerWidth = 0;
     this.productWidth = 0;
+    this.productsToShow = 5;
     this.productList = [];
   };
 
@@ -199,21 +200,34 @@ const main = () => {
     }
     this.setProductWidth = () => {
       model.containerWidth = selectors.brSwiperContainer.offsetWidth
-      model.productWidth = `${(model.containerWidth / 5)}px`
+      model.productWidth = model.containerWidth / model.productsToShow;
       model.productList.forEach((product) => {
-        product.style.width = model.productWidth
+        product.style.width = `${model.productWidth}px`
       });
     };
-  };
+    this.setStartingPosition = () => {
+      const centralPosition = Math.ceil(model.productList.length / 2);
+      const swiperPosition = Math.ceil((model.productList.length - model.productsToShow) / 2);
+      model.productList[centralPosition].classList.add('focus');
+      model.productList[centralPosition - 1].classList.add('prev');
+      model.productList[centralPosition + 1].classList.add('next')
+      selectors.brSwiperWrapper.style.left = `-${model.productWidth * swiperPosition}px`;
+      };
+    };
 
   const events = new function() {
-    this.resizeProduct = () => {
+    this.resizeProductAndPosition = () => {
+      const previousWidth = model.productWidth;
+      const previousLeft = parseFloat(selectors.brSwiperWrapper.style.left);
       view.setProductWidth();
+      const reducctionFactor = previousWidth / model.productWidth;
+      selectors.brSwiperWrapper.style.left = `${ previousLeft / reducctionFactor}px`;
     };
   };
 
   view.createProductList();
-  window.addEventListener('resize', events.resizeProduct);
+  view.setStartingPosition();
+  window.addEventListener('resize', events.resizeProductAndPosition);
 
 };
 
