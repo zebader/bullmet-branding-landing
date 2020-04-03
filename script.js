@@ -303,7 +303,7 @@ const main = () => {
         view.resetClasses();
         model.productsToShow = 3;
         view.setStartingPosition()
-      } else {
+      } else if ((e.target.innerWidth > 750)) {
         view.resetClasses();
         model.productsToShow = 5;
         view.setStartingPosition()
