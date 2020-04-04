@@ -293,11 +293,6 @@ const main = () => {
 
   const events = new function() {
     this.resizeProductAndPosition = (e) => {
-      const previousWidth = model.productWidth;
-      const previousLeft = parseFloat(selectors.brSwiperWrapper.style.left);
-      view.setProductWidth();
-      const reducctionFactor = previousWidth / model.productWidth;
-      selectors.brSwiperWrapper.style.left = `${ previousLeft / reducctionFactor}px`;
       if(e.target.innerWidth < 750) {
         view.resetClasses();
         model.productsToShow = 3;
@@ -307,6 +302,11 @@ const main = () => {
         model.productsToShow = 5;
         view.setStartingPosition()
       };
+      const previousWidth = model.productWidth;
+      const previousLeft = parseFloat(selectors.brSwiperWrapper.style.left);
+      view.setProductWidth();
+      const reducctionFactor = previousWidth / model.productWidth;
+      selectors.brSwiperWrapper.style.left = `${ previousLeft / reducctionFactor}px`;
     };
     this.onPrevious = () => {
       if(selectors.brSwiperFocus.previousSibling){
