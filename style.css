@@ -342,7 +342,13 @@ footer img{
   }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 750px) {
+  h1, h2 {
+    font-size: 1.3em;
+  }
+  div.left-button, div.right-button{
+    display: none;
+  }
   article {
     width: 100%;
   }

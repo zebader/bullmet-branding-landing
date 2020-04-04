@@ -9,31 +9,35 @@ const myImages = [
   'img/history-c1.jpg',
   'img/history-header.jpg',
   'img/next.svg',
-  'img/product-1.png',
-  'img/product-2.png',
-  'img/product-3.png',
-  'img/product-4.png',
-  'img/product-5.png',
-  'img/product-6.png',
 ];
 
-const productUrls = [
-  'https://dribbble.com/shots/10881367-Monster-Kids-Sketch-WIP',
-  'https://dribbble.com/shots/10880032-Mixology-Animated-II',
-  'https://dribbble.com/shots/10866250-Spectre-Pizza-Cult-Leader',
-  'https://dribbble.com/shots/10863887-Playstation-5-User-Interface-Concept',
-  'https://dribbble.com/shots/10842002-Squatchin-Character-Design',
-  'https://dribbble.com/shots/10821781-Ruckus-Racoon-is-Back',
-];
+const buildProducts = {
+  allProducts:[
+    'img/product-1.png',
+    'img/product-2.png',
+    'img/product-3.png',
+    'img/product-4.png',
+    'img/product-5.png',
+    'img/product-6.png',
+  ],
+  productUrls:[
+    'https://dribbble.com/shots/10881367-Monster-Kids-Sketch-WIP',
+    'https://dribbble.com/shots/10880032-Mixology-Animated-II',
+    'https://dribbble.com/shots/10866250-Spectre-Pizza-Cult-Leader',
+    'https://dribbble.com/shots/10863887-Playstation-5-User-Interface-Concept',
+    'https://dribbble.com/shots/10842002-Squatchin-Character-Design',
+    'https://dribbble.com/shots/10821781-Ruckus-Racoon-is-Back',
+  ],
+  productInfo:[
+    'Chivas product 1',
+    'Chivas product 2',
+    'Chivas product 3',
+    'Chivas product 4',
+    'Chivas product 5',
+    'Chivas product 6',
+  ],
+}
 
-const productInfo = [
-  'Chivas product 1',
-  'Chivas product 2',
-  'Chivas product 3',
-  'Chivas product 4',
-  'Chivas product 5',
-  'Chivas product 6',
-];
 
 const loadImages =  async function(imageUrlArray) {
   const promiseArray = [];
@@ -224,16 +228,11 @@ const main = () => {
       link.appendChild(img);
       return product
     };
-    this.getProductList = (allImages) => {
-      return allImages.filter(img => img.includes('product'));
-    }
     this.createProductList = () => {
-      const productList = this.getProductList(myImages);
-      
-      productList.forEach((product, index) => {
+      buildProducts.allProducts.forEach((product, index) => {
         const newImg = new Image();
         newImg.setAttribute('src', product);
-        const newProduct = this.createProduct(newImg, index, productUrls[index], productInfo[index]);
+        const newProduct = this.createProduct(newImg, index, buildProducts.productUrls[index], buildProducts.productInfo[index]);
         selectors.brSwiperWrapper.appendChild(newProduct);
       });
       this.setProductElements();
@@ -360,6 +359,10 @@ const main = () => {
     this.unify = (e) => { return e.changedTouches ? e.changedTouches[0] : e };
   };
 
+  if ((window.innerWidth < 750)) {
+    view.resetClasses();
+    model.productsToShow = 3;
+  };
   view.createProductList();
   view.setStartingPosition();
   window.addEventListener('resize', events.resizeProductAndPosition);
@@ -372,6 +375,6 @@ const main = () => {
 
 };
 
-loadImages(myImages).then((images) => {
+loadImages([...myImages,...buildProducts.allProducts]).then((images) => {
   window.addEventListener('load',main);
 });
