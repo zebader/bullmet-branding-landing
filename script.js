@@ -515,6 +515,4 @@ for (var i = 0; i < sources.length; i++) {
   sources[i] += "?" + Math.random();
 }
 
-preloadImages(sources, function(e) {
-  window.addEventListener("load", main);
-});
+preloadImages(sources, main);
