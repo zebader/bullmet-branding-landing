@@ -1,501 +1,456 @@
-"use strict";
+'use strict'
 
-function _toConsumableArray(arr) {
-  return (
-    _arrayWithoutHoles(arr) ||
-    _iterableToArray(arr) ||
-    _unsupportedIterableToArray(arr) ||
-    _nonIterableSpread()
-  );
-}
-
-function _nonIterableSpread() {
-  throw new TypeError(
-    "Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."
-  );
-}
-
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter))
-    return Array.from(iter);
-}
-
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
-}
-
-function _createForOfIteratorHelper(o) {
-  if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
-    if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) {
-      var i = 0;
-      var F = function F() {};
-      return {
-        s: F,
-        n: function n() {
-          if (i >= o.length) return { done: true };
-          return { done: false, value: o[i++] };
-        },
-        e: function e(_e) {
-          throw _e;
-        },
-        f: F
-      };
-    }
-    throw new TypeError(
-      "Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."
-    );
-  }
-  var it,
-    normalCompletion = true,
-    didErr = false,
-    err;
-  return {
-    s: function s() {
-      it = o[Symbol.iterator]();
-    },
-    n: function n() {
-      var step = it.next();
-      normalCompletion = step.done;
-      return step;
-    },
-    e: function e(_e2) {
-      didErr = true;
-      err = _e2;
-    },
-    f: function f() {
-      try {
-        if (!normalCompletion && it.return != null) it.return();
-      } finally {
-        if (didErr) throw err;
-      }
-    }
-  };
-}
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
-    return _arrayLikeToArray(o, minLen);
-}
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-  return arr2;
-}
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
-  try {
-    var info = gen[key](arg);
-    var value = info.value;
-  } catch (error) {
-    reject(error);
-    return;
-  }
-  if (info.done) {
-    resolve(value);
-  } else {
-    Promise.resolve(value).then(_next, _throw);
-  }
-}
-
-function _asyncToGenerator(fn) {
-  return function() {
-    var self = this,
-      args = arguments;
-    return new Promise(function(resolve, reject) {
-      var gen = fn.apply(self, args);
-      function _next(value) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
-      }
-      function _throw(err) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
-      }
-      _next(undefined);
-    });
-  };
-}
-
-var myImages = [
-  "img/bullmet.png",
-  "img/header.jpg",
-  "img/history-c1.jpg",
-  "img/history-c2.jpg",
-  "img/history-c3.jpg",
-  "img/history-c1.jpg",
-  "img/history-header.jpg",
-  "img/next.svg"
+const myImages = [
+  'img/bullmet.png',
+  'img/header.jpg',
+  'img/history-c1.jpg',
+  'img/history-c2.jpg',
+  'img/history-c3.jpg',
+  'img/history-c1.jpg',
+  'img/history-header.jpg',
+  'img/next.svg',
 ];
-var buildProducts = {
-  allProducts: [
-    "img/product-1.png",
-    "img/product-2.png",
-    "img/product-3.png",
-    "img/product-4.png",
-    "img/product-5.png",
-    "img/product-6.png"
+
+const buildProducts = {
+  allProducts:[
+    'img/product-1.png',
+    'img/product-2.png',
+    'img/product-3.png',
+    'img/product-4.png',
+    'img/product-5.png',
+    'img/product-6.png',
   ],
-  productUrls: [
-    "https://dribbble.com/shots/10881367-Monster-Kids-Sketch-WIP",
-    "https://dribbble.com/shots/10880032-Mixology-Animated-II",
-    "https://dribbble.com/shots/10866250-Spectre-Pizza-Cult-Leader",
-    "https://dribbble.com/shots/10863887-Playstation-5-User-Interface-Concept",
-    "https://dribbble.com/shots/10842002-Squatchin-Character-Design",
-    "https://dribbble.com/shots/10821781-Ruckus-Racoon-is-Back"
+  productUrls:[
+    'https://dribbble.com/shots/10881367-Monster-Kids-Sketch-WIP',
+    'https://dribbble.com/shots/10880032-Mixology-Animated-II',
+    'https://dribbble.com/shots/10866250-Spectre-Pizza-Cult-Leader',
+    'https://dribbble.com/shots/10863887-Playstation-5-User-Interface-Concept',
+    'https://dribbble.com/shots/10842002-Squatchin-Character-Design',
+    'https://dribbble.com/shots/10821781-Ruckus-Racoon-is-Back',
   ],
-  productInfo: [
-    "Chivas product 1",
-    "Chivas product 2",
-    "Chivas product 3",
-    "Chivas product 4",
-    "Chivas product 5",
-    "Chivas product 6"
-  ]
+  productInfo:[
+    'Chivas product 1',
+    'Chivas product 2',
+    'Chivas product 3',
+    'Chivas product 4',
+    'Chivas product 5',
+    'Chivas product 6',
+  ],
+}
+
+
+const loadImages =  async function(imageUrlArray) {
+  const promiseArray = [];
+  const imageArray = [];
+
+  for (let imageUrl of imageUrlArray) {
+
+      promiseArray.push(new Promise(resolve => {
+          const img = new Image();
+          img.onload = resolve;
+          img.src = imageUrl;
+          imageArray.push(img);
+      }));
+  }
+  await Promise.all(promiseArray);
+  return imageArray;
 };
 
-var loadImages = /*#__PURE__*/ (function() {
-  var _ref = _asyncToGenerator(
-    /*#__PURE__*/ regeneratorRuntime.mark(function _callee(imageUrlArray) {
-      var promiseArray, imageArray, _iterator, _step, _loop;
+const main = () => {
+  const components = new function() {
+    this.sectionBrHeader = 
+    `
+    <section class="br-header animation-start-app">
+      <img src="img/bullmet.png" alt="">
+    </section>
+    `;
+    this.sectionBrSwiperControllers = 
+    `
+      <div class="left-button"></div>
+      <div class="right-button"></div>
+    `;
+    this.sectionBrSwiper = 
+    `
+    <section class="br-swiper animation-start-app">
+      <h1>Descubre nuestros productos</h1>
+      <article class="br-swiper-container">
+        ${this.sectionBrSwiperControllers}
+        <article class="br-swiper-wrapper"></article>
+        <article class="br-swipe-product-info">
+          <p></p>
+          <a target="_blank">
+            <button>VER YA</button>
+          </a>
+        </article>
+      </article>
+    </section>
+    `;
+    this.sectionBrHystoryMainContent = 
+    `
+    <article class="br-history-full-img"></article>
+    <article class="br-history-ctnt animation-start-app">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ligula dolor, mattis ut ornare vel,
+        commodo sed tortor. Ut sed sapien dui. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+        Vestibulum augue magna, feugiat sit amet metus nec, ullamcorper pharetra orci. Curabitur at fringilla ex,
+        aliquam vulputate nibh. Quisque eget est leo. Aliquam iaculis, est ac volutpat ultrices, massa nibh volutpat
+        lectus, vel bibendum mi eros vel velit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis eget
+        eleifend justo. Curabitur non lectus eget felis porta ultricies. Morbi ultricies nulla convallis nulla
+        pharetra, nec vehicula magna consectetur. Vestibulum luctus tempus mi sit amet pretium. Aliquam feugiat
+        venenatis est, a porta dui varius vitae. Praesent dapibus neque magna, a venenatis ante ornare a.
+        Curabitur ac tempor est. In nec mi non lectus pretium congue a vel justo.
+      </p>
+      <p>
+        Phasellus imperdiet tempus
+        odio, non venenatis est molestie et. Nunc metus purus, volutpat ac ligula et, porta posuere risus. Curabitur
+        fringilla leo porta metus lobortis accumsan. Pellentesque facilisis mi vel odio aliquet lacinia. Proin eu erat 
+        eget quam auctor lobortis. Fusce non nisi vitae erat mollis viverra. Phasellus tempor egestas lectus.
+        Aliquam in convallis libero. Sed elit est, pretium sed volutpat ac, interdum dictum nisl.
+        Suspendisse auctor lectus ante, sit amet maximus magna lobortis in. Aenean sagittis condimentum euismod.
+        Aliquam neque lacus, mollis nec est a, luctus mollis augue. Nullam dapibus nec diam ac pulvinar.
+      </p>
+    </article>
+    `;
+    this.sectionBrHystorySecondaryImages = 
+    `
+    <article class="br-history-se-ctnt-block-img-container">
+      <article class="br-history-se-ctnt-block-img">
+        <img src="img/history-c1.jpg" alt="">
+      </article>
+      <article class="br-history-se-ctnt-block-img">
+        <img src="img/history-c2.jpg" alt="">
+      </article>
+      <article class="br-history-se-ctnt-block-img">
+        <img src="img/history-c3.jpg" alt="">
+      </article>
+      <article class="br-history-se-ctnt-block-img">
+        <img src="img/history-c4.jpg" alt="">
+      </article>
+    </article>
+    `;
+    this.sectionBrHystorySecondaryTexts = 
+    `
+    <article class="br-history-se-ctnt-block">
+      <article class="br-history-se-ctnt-block-text">
+        <h2>
+          Title column 1
+        </h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae commodo neque, non ullamcorper arcu.
+          Aliquam erat volutpat. Fusce elementum bibendum ipsum, vitae lobortis risus aliquam et.
+          Nulla tempus nisl at urna lacinia tempus. Fusce bibendum, elit id laoreet scelerisque, nisl ex eleifend velit,
+          in maximus nulla magna ac libero. In hac habitasse platea dictumst. Phasellus dictum sollicitudin mi et sodales.
+        </p>
+      </article>
+      <article class="br-history-se-ctnt-block-text">
+        <h2>
+          Title column 2
+        </h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae commodo neque, non ullamcorper arcu.
+          Aliquam erat volutpat. Fusce elementum bibendum ipsum, vitae lobortis risus aliquam et.
+          Nulla tempus nisl at urna lacinia tempus. Fusce bibendum, elit id laoreet scelerisque, nisl ex eleifend velit,
+          in maximus nulla magna ac libero. In hac habitasse platea dictumst. Phasellus dictum sollicitudin mi et sodales.
+        </p>
+      </article>
+    </article>
+    `;
+    this.sectionBrHystorySecondaryMobile = 
+    `
+    <article class="br-history-se-ctnt-block-img-container">
+      <article class="br-history-se-ctnt-block-img">
+        <img src="img/history-c1.jpg" alt="">
+      </article>
+      <article class="br-history-se-ctnt-block-text">
+        <h2>
+          Title column 1
+        </h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae commodo neque, non ullamcorper arcu.
+          Aliquam erat volutpat. Fusce elementum bibendum ipsum, vitae lobortis risus aliquam et.
+          Nulla tempus nisl at urna lacinia tempus. Fusce bibendum, elit id laoreet scelerisque, nisl ex eleifend velit,
+          in maximus nulla magna ac libero. In hac habitasse platea dictumst. Phasellus dictum sollicitudin mi et sodales.
+        </p>
+      </article>
+      <article class="br-history-se-ctnt-block-img">
+        <img src="img/history-c2.jpg" alt="">
+      </article>
+      <article class="br-history-se-ctnt-block-text">
+        <h2>
+          Title column 2
+        </h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae commodo neque, non ullamcorper arcu.
+          Aliquam erat volutpat. Fusce elementum bibendum ipsum, vitae lobortis risus aliquam et.
+          Nulla tempus nisl at urna lacinia tempus. Fusce bibendum, elit id laoreet scelerisque, nisl ex eleifend velit,
+          in maximus nulla magna ac libero. In hac habitasse platea dictumst. Phasellus dictum sollicitudin mi et sodales.
+        </p>
+      </article>
+    </article>
+    `;
+    this.sectionBrHystorySecondaryContentDesktop = 
+    `
+    ${this.sectionBrHystorySecondaryImages}
+    ${this.sectionBrHystorySecondaryTexts}
+    `;
+    this.sectionBrHystorySecondaryContentMobile = 
+    `
+    ${this.sectionBrHystorySecondaryMobile}
+    `;
+    this.sectionBrHystorySecondaryContent = 
+    `
+    <article class="br-history-se-ctnt">
+    ${window.innerWidth < 750 ? this.sectionBrHystorySecondaryContentMobile : this.sectionBrHystorySecondaryContentDesktop}
 
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch ((_context.prev = _context.next)) {
-            case 0:
-              promiseArray = [];
-              imageArray = [];
-              _iterator = _createForOfIteratorHelper(imageUrlArray);
+    </article>
+    `;
+    this.sectionBrHistory = 
+    `
+    <section class="br-history animation-start-app">
+      <h1>Conoce nuestra historia</h1>
+      ${this.sectionBrHystoryMainContent}
+      ${this.sectionBrHystorySecondaryContent}
+    </section>
+    `;
+    window.addEventListener('resize', (e) => {
+      if(window.innerWidth < 750) {
+        document.querySelector('.br-history-se-ctnt').innerHTML = this.sectionBrHystorySecondaryContentMobile;
+      } else {
+        document.querySelector('.br-history-se-ctnt').innerHTML = this.sectionBrHystorySecondaryContentDesktop;
+      }
+    });
+  }
 
-              try {
-                _loop = function _loop() {
-                  var imageUrl = _step.value;
-                  promiseArray.push(
-                    new Promise(function(resolve) {
-                      var img = new Image();
-                      img.onload = resolve;
-                      img.src = imageUrl;
-                      imageArray.push(img);
-                    })
-                  );
-                };
+  const templates = new function() {
 
-                for (_iterator.s(); !(_step = _iterator.n()).done; ) {
-                  _loop();
-                }
-              } catch (err) {
-                _iterator.e(err);
-              } finally {
-                _iterator.f();
-              }
+    this.main =
+    `
+    ${components.sectionBrHeader}
+    ${components.sectionBrSwiper}
+    ${components.sectionBrHistory}
+    `;
+    
+    this.initMainTemplate = () => {
+      document.querySelector('main').innerHTML = this.main;
+    };
 
-              _context.next = 6;
-              return Promise.all(promiseArray);
-
-            case 6:
-              return _context.abrupt("return", imageArray);
-
-            case 7:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    })
-  );
-
-  return function loadImages(_x) {
-    return _ref.apply(this, arguments);
+    this.initAllTemplates = () => {
+      this.initMainTemplate();
+    };
   };
-})();
 
-var main = function main() {
-  var components = new function() {
-    this.sectionBrHeader =
-      '\n    <section class="br-header animation-start-app">\n      <img src="img/bullmet.png" alt="">\n    </section>\n    ';
-    this.sectionBrSwiperControllers =
-      '\n      <div class="left-button"></div>\n      <div class="right-button"></div>\n    ';
-    this.sectionBrSwiper = '\n    <section class="br-swiper animation-start-app">\n      <h1>Descubre nuestros productos</h1>\n      <article class="br-swiper-container">\n        '.concat(
-      this.sectionBrSwiperControllers,
-      '\n        <article class="br-swiper-wrapper"></article>\n        <article class="br-swipe-product-info">\n          <p></p>\n          <a target="_blank">\n            <button>COMPRAR</button>\n          </a>\n        </article>\n      </article>\n    </section>\n    '
-    );
-    this.sectionBrHystoryMainContent =
-      '\n    <article class="br-history-full-img"></article>\n    <article class="br-history-ctnt animation-start-app">\n      <p>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ligula dolor, mattis ut ornare vel,\n        commodo sed tortor. Ut sed sapien dui. Interdum et malesuada fames ac ante ipsum primis in faucibus.\n        Vestibulum augue magna, feugiat sit amet metus nec, ullamcorper pharetra orci. Curabitur at fringilla ex,\n        aliquam vulputate nibh. Quisque eget est leo. Aliquam iaculis, est ac volutpat ultrices, massa nibh volutpat\n        lectus, vel bibendum mi eros vel velit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis eget\n        eleifend justo. Curabitur non lectus eget felis porta ultricies. Morbi ultricies nulla convallis nulla\n        pharetra, nec vehicula magna consectetur. Vestibulum luctus tempus mi sit amet pretium. Aliquam feugiat\n        venenatis est, a porta dui varius vitae. Praesent dapibus neque magna, a venenatis ante ornare a.\n        Curabitur ac tempor est. In nec mi non lectus pretium congue a vel justo.\n      </p>\n      <p>\n        Phasellus imperdiet tempus\n        odio, non venenatis est molestie et. Nunc metus purus, volutpat ac ligula et, porta posuere risus. Curabitur\n        fringilla leo porta metus lobortis accumsan. Pellentesque facilisis mi vel odio aliquet lacinia. Proin eu erat \n        eget quam auctor lobortis. Fusce non nisi vitae erat mollis viverra. Phasellus tempor egestas lectus.\n        Aliquam in convallis libero. Sed elit est, pretium sed volutpat ac, interdum dictum nisl.\n        Suspendisse auctor lectus ante, sit amet maximus magna lobortis in. Aenean sagittis condimentum euismod.\n        Aliquam neque lacus, mollis nec est a, luctus mollis augue. Nullam dapibus nec diam ac pulvinar.\n      </p>\n    </article>\n    ';
-    this.sectionBrHystorySecondaryImages =
-      '\n    <article class="br-history-se-ctnt-block-img-container">\n      <article class="br-history-se-ctnt-block-img">\n        <img src="img/history-c1.jpg" alt="">\n      </article>\n      <article class="br-history-se-ctnt-block-img">\n        <img src="img/history-c2.jpg" alt="">\n      </article>\n      <article class="br-history-se-ctnt-block-img">\n        <img src="img/history-c3.jpg" alt="">\n      </article>\n      <article class="br-history-se-ctnt-block-img">\n        <img src="img/history-c4.jpg" alt="">\n      </article>\n    </article>\n    ';
-    this.sectionBrHystorySecondaryTexts =
-      '\n    <article class="br-history-se-ctnt-block">\n      <article class="br-history-se-ctnt-block-text">\n        <h2>\n          Title column 1\n        </h2>\n        <p>\n          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae commodo neque, non ullamcorper arcu.\n          Aliquam erat volutpat. Fusce elementum bibendum ipsum, vitae lobortis risus aliquam et.\n          Nulla tempus nisl at urna lacinia tempus. Fusce bibendum, elit id laoreet scelerisque, nisl ex eleifend velit,\n          in maximus nulla magna ac libero. In hac habitasse platea dictumst. Phasellus dictum sollicitudin mi et sodales.\n        </p>\n      </article>\n      <article class="br-history-se-ctnt-block-text">\n        <h2>\n          Title column 2\n        </h2>\n        <p>\n          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae commodo neque, non ullamcorper arcu.\n          Aliquam erat volutpat. Fusce elementum bibendum ipsum, vitae lobortis risus aliquam et.\n          Nulla tempus nisl at urna lacinia tempus. Fusce bibendum, elit id laoreet scelerisque, nisl ex eleifend velit,\n          in maximus nulla magna ac libero. In hac habitasse platea dictumst. Phasellus dictum sollicitudin mi et sodales.\n        </p>\n      </article>\n    </article>\n    ';
-    this.sectionBrHystorySecondaryContent = '\n    <article class="br-history-se-ctnt">\n    '
-      .concat(this.sectionBrHystorySecondaryImages, "\n    ")
-      .concat(this.sectionBrHystorySecondaryTexts, "\n    </article>\n    ");
-    this.sectionBrHistory = '\n    <section class="br-history animation-start-app">\n      <h1>Conoce nuestra historia</h1>\n      '
-      .concat(this.sectionBrHystoryMainContent, "\n      ")
-      .concat(this.sectionBrHystorySecondaryContent, "\n    </section>\n    ");
-  }();
-  var templates = new function() {
-    var _this = this;
-
-    this.main = "\n    "
-      .concat(components.sectionBrHeader, "\n    ")
-      .concat(components.sectionBrSwiper, "\n    ")
-      .concat(components.sectionBrHistory, "\n    ");
-
-    this.initMainTemplate = function() {
-      document.querySelector("main").innerHTML = _this.main;
-    };
-
-    this.initAllTemplates = function() {
-      _this.initMainTemplate();
-    };
-  }();
   templates.initAllTemplates();
-  var selectors = new function() {
-    this.page = document.querySelector("body");
-    this.brSwiper = this.page.querySelector(".br-swiper");
-    this.brSwiperContainer = this.brSwiper.querySelector(
-      ".br-swiper-container"
-    );
-    this.brSwiperLeftButton = this.brSwiperContainer.querySelector(
-      ".left-button"
-    );
-    this.brSwiperRightButton = this.brSwiperContainer.querySelector(
-      ".right-button"
-    );
-    this.brSwiperWrapper = this.brSwiperContainer.querySelector(
-      ".br-swiper-wrapper"
-    );
-    this.brSwiperProductInfo = this.brSwiperContainer.querySelector(
-      ".br-swipe-product-info p"
-    );
-    this.brSwiperProductCTA = this.brSwiperContainer.querySelector(
-      ".br-swipe-product-info a"
-    );
-    this.brSwiperFocus;
-    this.brSwiperNext;
-    this.brSwiperPrev;
-  }();
-  var model = new function() {
+
+  const selectors = new function () {
+    this.page = document.querySelector('body');
+    this.brSwiper = this.page.querySelector('.br-swiper');
+    this.brSwiperContainer = this.brSwiper.querySelector('.br-swiper-container');    
+    this.brSwiperLeftButton = this.brSwiperContainer.querySelector('.left-button');    
+    this.brSwiperRightButton = this.brSwiperContainer.querySelector('.right-button');    
+    this.brSwiperWrapper = this.brSwiperContainer.querySelector('.br-swiper-wrapper');
+    this.brSwiperProductInfo = this.brSwiperContainer.querySelector('.br-swipe-product-info p');
+    this.brSwiperProductCTA = this.brSwiperContainer.querySelector('.br-swipe-product-info a');
+    this.brSwiperFocus; 
+    this.brSwiperNext; 
+    this.brSwiperPrev;     
+  };
+
+  const model = new function(){
     this.swiperMainPosition = 0;
     this.containerWidth = 0;
     this.productWidth = 0;
     this.productsToShow = 5;
     this.productList = [];
     this.lockPosition = 0;
-  }();
-  var view = new function() {
-    var _this2 = this;
+  };
 
-    this.createProduct = function(img, position, productLink, productInfo) {
-      var product = document.createElement("div");
-      product.classList.add("default");
-      product.setAttribute("data-list", position);
-      product.setAttribute("data-product", productInfo);
-      var link = document.createElement("a");
-      link.setAttribute("href", productLink);
-      link.setAttribute("target", "_blank");
+  const view = new function() {
+    this.createProduct = (img, position, productLink, productInfo) => {
+      const product = document.createElement("div");
+      product.classList.add('default');
+      product.setAttribute('data-list', position);
+      product.setAttribute('data-product', productInfo);
+      const link = document.createElement("a");
+      link.setAttribute('href', productLink);
+      link.setAttribute('target', "_blank");
       product.appendChild(link);
       link.appendChild(img);
-      return product;
+      return product
     };
-
-    this.createProductList = function() {
-      buildProducts.allProducts.forEach(function(product, index) {
-        var newImg = new Image();
-        newImg.setAttribute("src", product);
-
-        var newProduct = _this2.createProduct(
-          newImg,
-          index,
-          buildProducts.productUrls[index],
-          buildProducts.productInfo[index]
-        );
-
+    this.createProductList = () => {
+      buildProducts.allProducts.forEach((product, index) => {
+        const newImg = new Image();
+        newImg.setAttribute('src', product);
+        const newProduct = this.createProduct(newImg, index, buildProducts.productUrls[index], buildProducts.productInfo[index]);
         selectors.brSwiperWrapper.appendChild(newProduct);
       });
-
-      _this2.setProductElements();
-
-      _this2.setProductWidth();
+      this.setProductElements();
+      this.setProductWidth();
     };
-
-    this.setProductElements = function() {
-      model.productList = _toConsumableArray(
-        document.querySelectorAll(".default")
-      );
-    };
-
-    this.setProductWidth = function() {
-      model.containerWidth = selectors.brSwiperContainer.offsetWidth;
+    this.setProductElements = () => {
+      model.productList = [...document.querySelectorAll('.default')];
+    }
+    this.setProductWidth = () => {
+      model.containerWidth = selectors.brSwiperContainer.offsetWidth
       model.productWidth = model.containerWidth / model.productsToShow;
-      model.productList.forEach(function(product) {
-        product.style.width = "".concat(model.productWidth, "px");
+      model.productList.forEach((product) => {
+        product.style.width = `${model.productWidth}px`
       });
     };
-
-    this.setStartingPosition = function() {
-      var centralPosition = Math.ceil(model.productList.length / 2);
-      var swiperPosition = Math.ceil(
-        (model.productList.length - model.productsToShow) / 2
-      );
+    this.setStartingPosition = () => {
+      const centralPosition = Math.ceil(model.productList.length / 2);
+      const swiperPosition = Math.ceil((model.productList.length - model.productsToShow) / 2);
       selectors.brSwiperFocus = model.productList[centralPosition];
       selectors.brSwiperPrev = model.productList[centralPosition - 1];
-      selectors.brSwiperPrev.addEventListener("click", events.onPrevious);
+      selectors.brSwiperPrev.addEventListener('click', events.onPrevious, false);
       selectors.brSwiperNext = model.productList[centralPosition + 1];
-      selectors.brSwiperNext.addEventListener("click", events.onNext);
-      selectors.brSwiperFocus.classList.add("focus");
-      selectors.brSwiperPrev.classList.add("prev");
-      selectors.brSwiperNext.classList.add("next");
-      selectors.brSwiperWrapper.style.left = "-".concat(
-        model.productWidth * swiperPosition,
-        "px"
-      );
-
-      _this2.createProductCTA(selectors.brSwiperFocus);
+      selectors.brSwiperNext.addEventListener('click', events.onNext, false);
+      selectors.brSwiperFocus.classList.add('focus');
+      selectors.brSwiperPrev.classList.add('prev');      
+      selectors.brSwiperNext.classList.add('next');
+      selectors.brSwiperWrapper.style.left = `-${model.productWidth * swiperPosition}px`;
+      this.createProductCTA(selectors.brSwiperFocus)
     };
-
-    this.createProductCTA = function(selector) {
-      var productInfo = selector.getAttribute("data-product");
-      var productLink = selector.querySelector("a").getAttribute("href");
+    this.createProductCTA = (selector) => {
+      const productInfo = selector.getAttribute('data-product');
+      const productLink = selector.querySelector('a').getAttribute('href');
       selectors.brSwiperProductInfo.innerHTML = productInfo;
-      selectors.brSwiperProductCTA.setAttribute("href", productLink);
+      selectors.brSwiperProductCTA.setAttribute('href', productLink );
     };
-
-    this.cleanClassAndEvents = function() {
-      selectors.brSwiperNext.removeEventListener("click", events.onNext);
-      selectors.brSwiperPrev.removeEventListener("click", events.onPrevious);
-      selectors.brSwiperNext.classList.remove("next");
-      selectors.brSwiperPrev.classList.remove("prev");
-      selectors.brSwiperFocus.classList.remove("focus");
+    this.cleanClassAndEvents = () => {
+      selectors.brSwiperNext.removeEventListener('click', events.onNext);
+      selectors.brSwiperPrev.removeEventListener('click', events.onPrevious);
+      selectors.brSwiperNext.classList.remove('next');
+      selectors.brSwiperPrev.classList.remove('prev');
+      selectors.brSwiperFocus.classList.remove('focus');
     };
-
-    this.swipeOne = function(direction) {
-      var previousLeft = parseFloat(selectors.brSwiperWrapper.style.left);
-      direction === "left" &&
-        (selectors.brSwiperWrapper.style.left = "".concat(
-          previousLeft - model.productWidth,
-          "px"
-        ));
-      direction === "right" &&
-        (selectors.brSwiperWrapper.style.left = "".concat(
-          previousLeft + model.productWidth,
-          "px"
-        ));
+    this.swipeOne = (direction) => {
+      const previousLeft = parseFloat(selectors.brSwiperWrapper.style.left);
+      direction === 'left' && (selectors.brSwiperWrapper.style.left = `${ previousLeft - model.productWidth}px`);
+      direction === 'right' && (selectors.brSwiperWrapper.style.left = `${ previousLeft + model.productWidth}px`);
     };
-
-    this.resetClasses = function() {
-      model.productList.forEach(function(product) {
-        product.removeEventListener("click", events.onNext);
-        product.removeEventListener("click", events.onPrevious);
-        product.classList.remove("focus");
-        product.classList.remove("prev");
-        product.classList.remove("next");
+    this.resetClasses = () => {
+      model.productList.forEach((product) => {
+        product.removeEventListener('click', events.onNext);
+        product.removeEventListener('click', events.onPrevious);
+        product.classList.remove('focus');
+        product.classList.remove('prev');
+        product.classList.remove('next');
       });
     };
-  }();
-  var events = new function() {
-    var _this3 = this;
+  };
 
-    this.resizeProductAndPosition = function(e) {
-      if (e.target.innerWidth < 750) {
+  const events = new function() {
+    this.resizeProductAndPosition = (e) => {
+      if(e.target.innerWidth < 750) {
         view.resetClasses();
         model.productsToShow = 3;
-        view.setStartingPosition();
-      } else if (e.target.innerWidth > 750) {
+        view.setStartingPosition()
+      } else if ((e.target.innerWidth > 750)) {
         view.resetClasses();
         model.productsToShow = 5;
-        view.setStartingPosition();
-      }
-
-      var previousWidth = model.productWidth;
-      var previousLeft = parseFloat(selectors.brSwiperWrapper.style.left);
+        view.setStartingPosition()
+      };
+      const previousWidth = model.productWidth;
+      const previousLeft = parseFloat(selectors.brSwiperWrapper.style.left);
       view.setProductWidth();
-      var reducctionFactor = previousWidth / model.productWidth;
-      selectors.brSwiperWrapper.style.left = "".concat(
-        previousLeft / reducctionFactor,
-        "px"
-      );
+      const reducctionFactor = previousWidth / model.productWidth;
+      selectors.brSwiperWrapper.style.left = `${ previousLeft / reducctionFactor}px`;
     };
-
-    this.onPrevious = function() {
-      if (selectors.brSwiperFocus.previousSibling) {
+    this.onPrevious = () => {
+      if(selectors.brSwiperFocus.previousSibling){
         view.cleanClassAndEvents();
         selectors.brSwiperNext = selectors.brSwiperFocus;
-        selectors.brSwiperNext.classList.add("next");
-        selectors.brSwiperNext.addEventListener("click", events.onNext);
+        selectors.brSwiperNext.classList.add('next');
+        selectors.brSwiperNext.addEventListener('click', events.onNext, false);
+        
         selectors.brSwiperFocus = selectors.brSwiperPrev;
-        selectors.brSwiperFocus.classList.add("focus");
+        selectors.brSwiperFocus.classList.add('focus');
         view.createProductCTA(selectors.brSwiperFocus);
-
-        if (selectors.brSwiperPrev.previousSibling) {
+  
+        if(selectors.brSwiperPrev.previousSibling) {
           selectors.brSwiperPrev = selectors.brSwiperPrev.previousSibling;
-          selectors.brSwiperPrev.classList.add("prev");
-          selectors.brSwiperPrev.addEventListener("click", events.onPrevious);
+          selectors.brSwiperPrev.classList.add('prev');
+          selectors.brSwiperPrev.addEventListener('click', events.onPrevious, false);
         }
-
-        view.swipeOne("right");
+        view.swipeOne('right');
       }
     };
+    this.onNext = () => {
+      if(selectors.brSwiperFocus.nextSibling){
+      view.cleanClassAndEvents();
+      selectors.brSwiperPrev = selectors.brSwiperFocus;
+      selectors.brSwiperPrev.classList.add('prev');
+      selectors.brSwiperPrev.addEventListener('click', events.onPrevious, false);
+      
+      selectors.brSwiperFocus = selectors.brSwiperNext;
+      selectors.brSwiperFocus.classList.add('focus');
+      view.createProductCTA(selectors.brSwiperFocus)
 
-    this.onNext = function() {
-      if (selectors.brSwiperFocus.nextSibling) {
-        view.cleanClassAndEvents();
-        selectors.brSwiperPrev = selectors.brSwiperFocus;
-        selectors.brSwiperPrev.classList.add("prev");
-        selectors.brSwiperPrev.addEventListener("click", events.onPrevious);
-        selectors.brSwiperFocus = selectors.brSwiperNext;
-        selectors.brSwiperFocus.classList.add("focus");
-        view.createProductCTA(selectors.brSwiperFocus);
-
-        if (selectors.brSwiperNext.nextSibling) {
-          selectors.brSwiperNext = selectors.brSwiperNext.nextSibling;
-          selectors.brSwiperNext.classList.add("next");
-          selectors.brSwiperNext.addEventListener("click", events.onNext);
-        }
-
-        view.swipeOne("left");
+      if(selectors.brSwiperNext.nextSibling) {
+        selectors.brSwiperNext = selectors.brSwiperNext.nextSibling;
+        selectors.brSwiperNext.classList.add('next');
+        selectors.brSwiperNext.addEventListener('click', events.onNext, false);
+      }
+      view.swipeOne('left');
+    }
+    };
+    this.lock = (e) => {
+      model.lockPosition = this.unify(e).clientX;
+    };
+    this.move = (e) => {
+      if(model.lockPosition > this.unify(e).clientX) {
+        this.onNext();
+      } else if (model.lockPosition < this.unify(e).clientX) {
+        this.onPrevious();
       }
     };
+    this.unify = (e) => { return e.changedTouches ? e.changedTouches[0] : e };
+  };
 
-    this.lock = function(e) {
-      model.lockPosition = _this3.unify(e).clientX;
-    };
-
-    this.move = function(e) {
-      if (model.lockPosition > _this3.unify(e).clientX) {
-        _this3.onNext();
-      } else if (model.lockPosition < _this3.unify(e).clientX) {
-        _this3.onPrevious();
-      }
-    };
-
-    this.unify = function(e) {
-      return e.changedTouches ? e.changedTouches[0] : e;
-    };
-  }();
-
-  if (window.innerWidth < 750) {
+  if ((window.innerWidth < 750)) {
     view.resetClasses();
     model.productsToShow = 3;
-  }
-
+  };
   view.createProductList();
   view.setStartingPosition();
-  window.addEventListener("resize", events.resizeProductAndPosition);
-  selectors.brSwiperContainer.addEventListener("mousedown", events.lock);
-  selectors.brSwiperContainer.addEventListener("touchstart", events.lock);
-  selectors.brSwiperContainer.addEventListener("mouseup", events.move);
-  selectors.brSwiperContainer.addEventListener("touchend", events.move);
-  selectors.brSwiperLeftButton.addEventListener("click", events.onPrevious);
-  selectors.brSwiperRightButton.addEventListener("click", events.onNext);
+  window.addEventListener('resize', events.resizeProductAndPosition, true);
+  selectors.brSwiperContainer.addEventListener('mousedown', events.lock, false);
+  selectors.brSwiperContainer.addEventListener('touchstart', events.lock, false);
+  selectors.brSwiperContainer.addEventListener('mouseup', events.move, false);
+  selectors.brSwiperContainer.addEventListener('touchend', events.move, false);
+  selectors.brSwiperContainer.addEventListener('touchmove', (e) => e.preventDefault, true);
+  selectors.brSwiperLeftButton.addEventListener('click', events.onPrevious, false);
+  selectors.brSwiperRightButton.addEventListener('click', events.onNext, false);
+
+//   let offset = [0];
+//   let isDown = false;
+//   let mousePosition;
+
+//   selectors.brSwiperWrapper.addEventListener('mousedown', function(e) {
+//     isDown = true;
+//     offset = [
+//       selectors.brSwiperWrapper.offsetLeft - e.clientX
+//     ];
+// }, true);
+
+// document.addEventListener('mouseup', function() {
+//     isDown = false;
+// }, true);
+
+// document.addEventListener('mousemove', function(event) {
+//     event.preventDefault();
+//     if (isDown) {
+//         mousePosition = {
+//             x : event.clientX,
+//         };
+//         selectors.brSwiperWrapper.style.left = (mousePosition.x + offset[0]) + 'px';
+//     }
+// }, true);
+
+
 };
 
-loadImages(
-  [].concat(myImages, _toConsumableArray(buildProducts.allProducts))
-).then(function(images) {
-  window.addEventListener("load", main);
+loadImages([...myImages,...buildProducts.allProducts]).then((images) => {
+  window.addEventListener('load',main);
 });
