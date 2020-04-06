@@ -453,6 +453,10 @@ article.br-history-se-ctnt-block-img{
   position: relative;
   width: 100%;
 }
+article.br-history-se-ctnt-block-img img{
+  position: absolute;
+  width: auto;
+}
 
 article.br-history-se-ctnt-block-img-ie{
   overflow: hidden;
