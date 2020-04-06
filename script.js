@@ -15,6 +15,63 @@ function _nonIterableSpread() {
   );
 }
 
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter))
+    return Array.from(iter);
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+
+function _createForOfIteratorHelper(o) {
+  if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
+    if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) {
+      var i = 0;
+      var F = function F() {};
+      return {
+        s: F,
+        n: function n() {
+          if (i >= o.length) return { done: true };
+          return { done: false, value: o[i++] };
+        },
+        e: function e(_e) {
+          throw _e;
+        },
+        f: F
+      };
+    }
+    throw new TypeError(
+      "Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."
+    );
+  }
+  var it,
+    normalCompletion = true,
+    didErr = false,
+    err;
+  return {
+    s: function s() {
+      it = o[Symbol.iterator]();
+    },
+    n: function n() {
+      var step = it.next();
+      normalCompletion = step.done;
+      return step;
+    },
+    e: function e(_e2) {
+      didErr = true;
+      err = _e2;
+    },
+    f: function f() {
+      try {
+        if (!normalCompletion && it.return != null) it.return();
+      } finally {
+        if (didErr) throw err;
+      }
+    }
+  };
+}
+
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
   if (typeof o === "string") return _arrayLikeToArray(o, minLen);
@@ -23,15 +80,6 @@ function _unsupportedIterableToArray(o, minLen) {
   if (n === "Map" || n === "Set") return Array.from(n);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
     return _arrayLikeToArray(o, minLen);
-}
-
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter))
-    return Array.from(iter);
-}
-
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
 }
 
 function _arrayLikeToArray(arr, len) {
@@ -79,43 +127,30 @@ var buildProducts = {
   ]
 };
 
-var Loader = function Loader() {};
+function preloadImages(sources, callback) {
+  var counter = 0;
 
-Loader.prototype = {
-  require: function require(scripts, callback) {
-    this.loadCount = 0;
-    this.totalRequired = scripts.length;
-    this.callback = callback;
-
-    for (var i = 0; i < scripts.length; i++) {
-      this.writeScript(scripts[i]);
-    }
-  },
-  loaded: function loaded(evt) {
-    this.loadCount++;
-    if (
-      this.loadCount == this.totalRequired &&
-      typeof this.callback == "function"
-    )
-      this.callback.call();
-  },
-  writeScript: function writeScript(src) {
-    var self = this;
-    var s = document.createElement("script");
-    s.type = "text/javascript";
-    s.async = true;
-    s.src = src;
-    s.addEventListener(
-      "load",
-      function(e) {
-        self.loaded(e);
-      },
-      false
-    );
-    var head = document.getElementsByTagName("head")[0];
-    head.appendChild(s);
+  function onLoad() {
+    counter++;
+    if (counter == sources.length) callback();
   }
-};
+
+  var _iterator = _createForOfIteratorHelper(sources),
+    _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done; ) {
+      var source = _step.value;
+      var img = document.createElement("img");
+      img.onload = img.onerror = onLoad;
+      img.src = source;
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+}
 
 var main = function main() {
   var components = new function() {
@@ -471,11 +506,15 @@ var main = function main() {
   // }, true);
 };
 
-var newLoader = new Loader();
-
-newLoader.require(
-  [].concat(myImages, _toConsumableArray(buildProducts.allProducts)),
-  function() {
-    window.addEventListener("load", main);
-  }
+var sources = [].concat(
+  myImages,
+  _toConsumableArray(buildProducts.allProducts)
 );
+
+for (var i = 0; i < sources.length; i++) {
+  sources[i] += "?" + Math.random();
+}
+
+preloadImages(sources, function(e) {
+  window.addEventListener("load", main);
+});

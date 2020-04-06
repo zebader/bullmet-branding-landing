@@ -38,32 +38,19 @@ const buildProducts = {
   ],
 }
 
-const Loader = function () { }
-Loader.prototype = {
-    require: function (scripts, callback) {
-        this.loadCount      = 0;
-        this.totalRequired  = scripts.length;
-        this.callback       = callback;
+function preloadImages(sources, callback) {
+  let counter = 0;
 
-        for (let i = 0; i < scripts.length; i++) {
-            this.writeScript(scripts[i]);
-        }
-    },
-    loaded: function (evt) {
-        this.loadCount++;
+  function onLoad() {
+    counter++;
+    if (counter == sources.length) callback();
+  }
 
-        if (this.loadCount == this.totalRequired && typeof this.callback == 'function') this.callback.call();
-    },
-    writeScript: function (src) {
-        const self = this;
-        const s = document.createElement('script');
-        s.type = "text/javascript";
-        s.async = true;
-        s.src = src;
-        s.addEventListener('load', function (e) { self.loaded(e); }, false);
-        const head = document.getElementsByTagName('head')[0];
-        head.appendChild(s);
-    }
+  for(let source of sources) {
+    let img = document.createElement('img');
+    img.onload = img.onerror = onLoad;
+    img.src = source;
+  }
 }
 
 const main = () => {
@@ -461,8 +448,12 @@ const main = () => {
 
 };
 
-const newLoader = new Loader();
-newLoader.require([...myImages,...buildProducts.allProducts], 
-    function() {
-        window.addEventListener('load',main);
+let sources = [...myImages,...buildProducts.allProducts];
+
+for (let i = 0; i < sources.length; i++) {
+  sources[i] += '?' + Math.random();
+}
+
+preloadImages(sources, (e) => {
+  window.addEventListener('load',main)
 });
