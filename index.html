@@ -6,13 +6,15 @@
   <title>Bullmet - gourmet products</title>
   <link href="style.css" rel="stylesheet" title="br-style">
   <script type="text/javascript">
-    if(!/MSIE \d|Trident.*rv:/.test(navigator.userAgent))
-    {
-      document.write('<script src="script.js"><\/script>')
-    } else if(/MSIE \d|Trident.*rv:/.test(navigator.userAgent))
-    {
-      document.write('<script src="scriptIE.js"><\/script>')
-    };  
+    if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+      document.write('<script src="scriptIE.js"><\/script>');
+    }
+    else if (/Edge/.test(navigator.userAgent)) {
+      document.write('<script src="scriptIE.js"><\/script>');
+    }
+    else if (!/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+      document.write('<script src="script.js"><\/script>');
+    }
 </script>
 </head>
 <body>
@@ -23,8 +25,9 @@
   <footer>
     <img src="img/bullmet.png" alt="">
     <p>	&#169; BULLMET EUROPE SOCIEDAD LIMITADA</p>
-    <p> Bebe con moderación, es tu responsabilidad
-      La venta de alcohol está prohibida a menores de 18 años</p>
+    <p>Bebe con moderación, es tu responsabilidad.</p>
+    <p>La venta de alcohol está prohibida a menores de 18 años.</p>
+    </p>
   </footer>
 </body>
 </html>

@@ -411,7 +411,6 @@ var main = function main() {
     false
   );
   selectors.brSwiperRightButton.addEventListener("click", events.onNext, false);
-  console.log("IE");
 };
 
 window.addEventListener("load", main);

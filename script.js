@@ -38,20 +38,22 @@ const buildProducts = {
   ],
 }
 
-function preloadImages(sources, callback) {
-  let counter = 0;
+const loadImages =  async function(imageUrlArray) {
+  const promiseArray = [];
+  const imageArray = [];
 
-  function onLoad() {
-    counter++;
-    if (counter == sources.length) callback();
-  }
+  for (let imageUrl of imageUrlArray) {
 
-  for(let source of sources) {
-    let img = document.createElement('img');
-    img.onload = img.onerror = onLoad;
-    img.src = source;
+      promiseArray.push(new Promise(resolve => {
+          const img = new Image();
+          img.onload = resolve;
+          img.src = imageUrl;
+          imageArray.push(img);
+      }));
   }
-}
+  await Promise.all(promiseArray);
+  return imageArray;
+};
 
 const main = () => {
   const components = new function() {
@@ -444,16 +446,8 @@ const main = () => {
 //         selectors.brSwiperWrapper.style.left = (mousePosition.x + offset[0]) + 'px';
 //     }
 // }, true);
-console.log('no IE');
-
 };
 
-let sources = [...myImages,...buildProducts.allProducts];
-
-for (let i = 0; i < sources.length; i++) {
-  sources[i] += '?' + Math.random();
-}
-
-preloadImages(sources, (e) => {
-  window.addEventListener('load',main)
+loadImages([...myImages,...buildProducts.allProducts]).then((images) => {
+  window.addEventListener('load',main);
 });
