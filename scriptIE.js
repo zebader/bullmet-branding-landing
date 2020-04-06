@@ -144,26 +144,9 @@ var main = function main() {
     this.brSwiperContainer = this.brSwiper.querySelector(
       ".br-swiper-container-ie"
     );
-    this.brSwiperLeftButton = this.brSwiperContainer.querySelector(
-      ".left-button"
-    );
-    this.brSwiperRightButton = this.brSwiperContainer.querySelector(
-      ".right-button"
-    );
     this.brSwiperWrapper = this.brSwiperContainer.querySelector(
       ".br-swiper-wrapper-ie"
     );
-    this.brSwiperFocus;
-    this.brSwiperNext;
-    this.brSwiperPrev;
-  }();
-  var model = new function() {
-    this.swiperMainPosition = 0;
-    this.containerWidth = 0;
-    this.productWidth = 0;
-    this.productsToShow = 5;
-    this.productList = [];
-    this.lockPosition = 0;
   }();
   var view = new function() {
     var _this3 = this;
@@ -201,80 +184,9 @@ var main = function main() {
 
         selectors.brSwiperWrapper.appendChild(newProduct);
       });
-
-      _this3.setProductElements();
-
-      _this3.setProductWidth();
-    };
-
-    this.setProductElements = function() {
-      model.productList = _toConsumableArray(
-        document.querySelectorAll(".default")
-      );
-    };
-
-    this.setProductWidth = function() {
-      model.containerWidth = selectors.brSwiperContainer.offsetWidth;
-      model.productWidth = model.containerWidth / model.productsToShow;
-      model.productList.forEach(function(product) {
-        product.style.width = "".concat(model.productWidth, "px");
-      });
-    };
-
-    this.setStartingPosition = function() {
-      var centralPosition = Math.ceil(model.productList.length / 2);
-      var swiperPosition = Math.ceil(
-        (model.productList.length - model.productsToShow) / 2
-      );
-      selectors.brSwiperFocus = model.productList[centralPosition];
-      selectors.brSwiperPrev = model.productList[centralPosition - 1];
-      selectors.brSwiperPrev.addEventListener(
-        "click",
-        events.onPrevious,
-        false
-      );
-      selectors.brSwiperNext = model.productList[centralPosition + 1];
-      selectors.brSwiperNext.addEventListener("click", events.onNext, false);
-      selectors.brSwiperFocus.classList.add("focus");
-      selectors.brSwiperPrev.classList.add("prev");
-      selectors.brSwiperNext.classList.add("next");
-      selectors.brSwiperWrapper.style.left = "-".concat(
-        model.productWidth * swiperPosition,
-        "px"
-      );
     };
   }();
-  var events = new function() {
-    this.resizeProductAndPosition = function(e) {
-      if (e.target.innerWidth < 750) {
-        view.resetClasses();
-        model.productsToShow = 3;
-        view.setStartingPosition();
-      } else if (e.target.innerWidth > 750) {
-        view.resetClasses();
-        model.productsToShow = 5;
-        view.setStartingPosition();
-      }
-
-      var previousWidth = model.productWidth;
-      var previousLeft = parseFloat(selectors.brSwiperWrapper.style.left);
-      view.setProductWidth();
-      var reducctionFactor = previousWidth / model.productWidth;
-      selectors.brSwiperWrapper.style.left = "".concat(
-        previousLeft / reducctionFactor,
-        "px"
-      );
-    };
-  }();
-
-  if (window.innerWidth < 750) {
-    view.resetClasses();
-    model.productsToShow = 3;
-  }
-
   view.createProductList();
-  view.setStartingPosition();
-  window.addEventListener("resize", events.resizeProductAndPosition, true);
 };
 
 var images = [];

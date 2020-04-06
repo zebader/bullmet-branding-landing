@@ -209,26 +209,9 @@ const main = () => {
     this.brSwiperContainer = this.brSwiper.querySelector(
       ".br-swiper-container-ie"
     );
-    this.brSwiperLeftButton = this.brSwiperContainer.querySelector(
-      ".left-button"
-    );
-    this.brSwiperRightButton = this.brSwiperContainer.querySelector(
-      ".right-button"
-    );
     this.brSwiperWrapper = this.brSwiperContainer.querySelector(
       ".br-swiper-wrapper-ie"
     );
-    this.brSwiperFocus;
-    this.brSwiperNext;
-    this.brSwiperPrev;
-  }();
-  const model = new function() {
-    this.swiperMainPosition = 0;
-    this.containerWidth = 0;
-    this.productWidth = 0;
-    this.productsToShow = 5;
-    this.productList = [];
-    this.lockPosition = 0;
   }();
   const view = new function() {
     this.createProduct = (img, position, productLink, productInfo) => {
@@ -262,71 +245,10 @@ const main = () => {
         );
         selectors.brSwiperWrapper.appendChild(newProduct);
       });
-      this.setProductElements();
-      this.setProductWidth();
-    };
-
-    this.setProductElements = () => {
-      model.productList = [...document.querySelectorAll(".default")];
-    };
-
-    this.setProductWidth = () => {
-      model.containerWidth = selectors.brSwiperContainer.offsetWidth;
-      model.productWidth = model.containerWidth / model.productsToShow;
-      model.productList.forEach(product => {
-        product.style.width = `${model.productWidth}px`;
-      });
-    };
-
-    this.setStartingPosition = () => {
-      const centralPosition = Math.ceil(model.productList.length / 2);
-      const swiperPosition = Math.ceil(
-        (model.productList.length - model.productsToShow) / 2
-      );
-      selectors.brSwiperFocus = model.productList[centralPosition];
-      selectors.brSwiperPrev = model.productList[centralPosition - 1];
-      selectors.brSwiperPrev.addEventListener(
-        "click",
-        events.onPrevious,
-        false
-      );
-      selectors.brSwiperNext = model.productList[centralPosition + 1];
-      selectors.brSwiperNext.addEventListener("click", events.onNext, false);
-      selectors.brSwiperFocus.classList.add("focus");
-      selectors.brSwiperPrev.classList.add("prev");
-      selectors.brSwiperNext.classList.add("next");
-      selectors.brSwiperWrapper.style.left = `-${model.productWidth *
-        swiperPosition}px`;
     };
   }();
-  const events = new function() {
-    this.resizeProductAndPosition = e => {
-      if (e.target.innerWidth < 750) {
-        view.resetClasses();
-        model.productsToShow = 3;
-        view.setStartingPosition();
-      } else if (e.target.innerWidth > 750) {
-        view.resetClasses();
-        model.productsToShow = 5;
-        view.setStartingPosition();
-      }
-      const previousWidth = model.productWidth;
-      const previousLeft = parseFloat(selectors.brSwiperWrapper.style.left);
-      view.setProductWidth();
-      const reducctionFactor = previousWidth / model.productWidth;
-      selectors.brSwiperWrapper.style.left = `${previousLeft /
-        reducctionFactor}px`;
-    };
-  }();
-
-  if (window.innerWidth < 750) {
-    view.resetClasses();
-    model.productsToShow = 3;
-  }
 
   view.createProductList();
-  view.setStartingPosition();
-  window.addEventListener("resize", events.resizeProductAndPosition, true);
 };
 
 var images = [];
