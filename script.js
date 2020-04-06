@@ -422,7 +422,10 @@ const main = () => {
   selectors.brSwiperRightButton.addEventListener('click', events.onNext, true);
 
 };
-
-loadImages([...myImages,...buildProducts.allProducts]).then((images) => {
+if (/Edge/.test(navigator.userAgent)) {
   window.addEventListener('load',main);
-});
+} else {
+  loadImages([...myImages,...buildProducts.allProducts]).then((images) => {
+    window.addEventListener('load',main);
+  });
+}

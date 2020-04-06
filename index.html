@@ -9,9 +9,6 @@
     if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
       document.write('<script src="scriptIE.js"><\/script>');
     }
-    else if (/Edge/.test(navigator.userAgent)) {
-      document.write('<script src="scriptIE.js"><\/script>');
-    }
     else if (!/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
       document.write('<script src="script.js"><\/script>');
     }
