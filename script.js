@@ -308,7 +308,7 @@ const main = () => {
       selectors.brSwiperPrev.classList.add('prev');      
       selectors.brSwiperNext.classList.add('next');
       selectors.brSwiperWrapper.style.left = `-${model.productWidth * swiperPosition}px`;
-      this.createProductCTA(selectors.brSwiperFocus)
+      this.createProductCTA(selectors.brSwiperFocus);
     };
     this.createProductCTA = (selector) => {
       const productInfo = selector.getAttribute('data-product');
@@ -414,38 +414,13 @@ const main = () => {
   view.createProductList();
   view.setStartingPosition();
   window.addEventListener('resize', events.resizeProductAndPosition, true);
-  selectors.brSwiperContainer.addEventListener('mousedown', events.lock, false);
-  selectors.brSwiperContainer.addEventListener('touchstart', events.lock, false);
-  selectors.brSwiperContainer.addEventListener('mouseup', events.move, false);
-  selectors.brSwiperContainer.addEventListener('touchend', events.move, false);
-  selectors.brSwiperContainer.addEventListener('touchmove', (e) => e.preventDefault, true);
-  selectors.brSwiperLeftButton.addEventListener('click', events.onPrevious, false);
-  selectors.brSwiperRightButton.addEventListener('click', events.onNext, false);
+  selectors.brSwiperWrapper.addEventListener('mousedown', events.lock, true);
+  selectors.brSwiperWrapper.addEventListener('touchstart', events.lock, true);
+  selectors.brSwiperWrapper.addEventListener('mouseup', events.move, true);
+  selectors.brSwiperWrapper.addEventListener('touchend', events.move, true);
+  selectors.brSwiperLeftButton.addEventListener('click', events.onPrevious, true);
+  selectors.brSwiperRightButton.addEventListener('click', events.onNext, true);
 
-//   let offset = [0];
-//   let isDown = false;
-//   let mousePosition;
-
-//   selectors.brSwiperWrapper.addEventListener('mousedown', function(e) {
-//     isDown = true;
-//     offset = [
-//       selectors.brSwiperWrapper.offsetLeft - e.clientX
-//     ];
-// }, true);
-
-// document.addEventListener('mouseup', function() {
-//     isDown = false;
-// }, true);
-
-// document.addEventListener('mousemove', function(event) {
-//     event.preventDefault();
-//     if (isDown) {
-//         mousePosition = {
-//             x : event.clientX,
-//         };
-//         selectors.brSwiperWrapper.style.left = (mousePosition.x + offset[0]) + 'px';
-//     }
-// }, true);
 };
 
 loadImages([...myImages,...buildProducts.allProducts]).then((images) => {
