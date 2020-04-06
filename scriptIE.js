@@ -1,5 +1,47 @@
 "use strict";
 
+function _toConsumableArray2(arr) {
+  return (
+    _arrayWithoutHoles2(arr) ||
+    _iterableToArray2(arr) ||
+    _unsupportedIterableToArray2(arr) ||
+    _nonIterableSpread2()
+  );
+}
+
+function _nonIterableSpread2() {
+  throw new TypeError(
+    "Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."
+  );
+}
+
+function _unsupportedIterableToArray2(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray2(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
+    return _arrayLikeToArray2(o, minLen);
+}
+
+function _iterableToArray2(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter))
+    return Array.from(iter);
+}
+
+function _arrayWithoutHoles2(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray2(arr);
+}
+
+function _arrayLikeToArray2(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+  return arr2;
+}
+
 function _toConsumableArray(arr) {
   return (
     _arrayWithoutHoles(arr) ||
@@ -415,4 +457,13 @@ var main = function main() {
   selectors.brSwiperRightButton.addEventListener("click", events.onNext, false);
 };
 
-window.addEventListener("load", main);
+var images = [];
+
+function preload() {
+  for (var i = 0; i < arguments.length; i++) {
+    images[i] = new Image();
+  }
+  window.addEventListener("load", main);
+}
+
+preload([].concat(myImages, _toConsumableArray2(buildProducts.allProducts)));
