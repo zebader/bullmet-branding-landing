@@ -38,23 +38,33 @@ const buildProducts = {
   ],
 }
 
+const Loader = function () { }
+Loader.prototype = {
+    require: function (scripts, callback) {
+        this.loadCount      = 0;
+        this.totalRequired  = scripts.length;
+        this.callback       = callback;
 
-const loadImages =  async function(imageUrlArray) {
-  const promiseArray = [];
-  const imageArray = [];
+        for (let i = 0; i < scripts.length; i++) {
+            this.writeScript(scripts[i]);
+        }
+    },
+    loaded: function (evt) {
+        this.loadCount++;
 
-  for (let imageUrl of imageUrlArray) {
-
-      promiseArray.push(new Promise(resolve => {
-          const img = new Image();
-          img.onload = resolve;
-          img.src = imageUrl;
-          imageArray.push(img);
-      }));
-  }
-  await Promise.all(promiseArray);
-  return imageArray;
-};
+        if (this.loadCount == this.totalRequired && typeof this.callback == 'function') this.callback.call();
+    },
+    writeScript: function (src) {
+        const self = this;
+        const s = document.createElement('script');
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = src;
+        s.addEventListener('load', function (e) { self.loaded(e); }, false);
+        const head = document.getElementsByTagName('head')[0];
+        head.appendChild(s);
+    }
+}
 
 const main = () => {
   const components = new function() {
@@ -79,7 +89,7 @@ const main = () => {
         <article class="br-swipe-product-info">
           <p></p>
           <a target="_blank">
-            <button>COMPRAR</button>
+            <button>VER YA</button>
           </a>
         </article>
       </article>
@@ -155,11 +165,53 @@ const main = () => {
       </article>
     </article>
     `;
+    this.sectionBrHystorySecondaryMobile = 
+    `
+    <article class="br-history-se-ctnt-block-img-container">
+      <article class="br-history-se-ctnt-block-img">
+        <img src="img/history-c1.jpg" alt="">
+      </article>
+      <article class="br-history-se-ctnt-block-text">
+        <h2>
+          Title column 1
+        </h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae commodo neque, non ullamcorper arcu.
+          Aliquam erat volutpat. Fusce elementum bibendum ipsum, vitae lobortis risus aliquam et.
+          Nulla tempus nisl at urna lacinia tempus. Fusce bibendum, elit id laoreet scelerisque, nisl ex eleifend velit,
+          in maximus nulla magna ac libero. In hac habitasse platea dictumst. Phasellus dictum sollicitudin mi et sodales.
+        </p>
+      </article>
+      <article class="br-history-se-ctnt-block-img">
+        <img src="img/history-c2.jpg" alt="">
+      </article>
+      <article class="br-history-se-ctnt-block-text">
+        <h2>
+          Title column 2
+        </h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae commodo neque, non ullamcorper arcu.
+          Aliquam erat volutpat. Fusce elementum bibendum ipsum, vitae lobortis risus aliquam et.
+          Nulla tempus nisl at urna lacinia tempus. Fusce bibendum, elit id laoreet scelerisque, nisl ex eleifend velit,
+          in maximus nulla magna ac libero. In hac habitasse platea dictumst. Phasellus dictum sollicitudin mi et sodales.
+        </p>
+      </article>
+    </article>
+    `;
+    this.sectionBrHystorySecondaryContentDesktop = 
+    `
+    ${this.sectionBrHystorySecondaryImages}
+    ${this.sectionBrHystorySecondaryTexts}
+    `;
+    this.sectionBrHystorySecondaryContentMobile = 
+    `
+    ${this.sectionBrHystorySecondaryMobile}
+    `;
     this.sectionBrHystorySecondaryContent = 
     `
     <article class="br-history-se-ctnt">
-    ${this.sectionBrHystorySecondaryImages}
-    ${this.sectionBrHystorySecondaryTexts}
+    ${window.innerWidth < 750 ? this.sectionBrHystorySecondaryContentMobile : this.sectionBrHystorySecondaryContentDesktop}
+
     </article>
     `;
     this.sectionBrHistory = 
@@ -170,6 +222,13 @@ const main = () => {
       ${this.sectionBrHystorySecondaryContent}
     </section>
     `;
+    window.addEventListener('resize', (e) => {
+      if(window.innerWidth < 750) {
+        document.querySelector('.br-history-se-ctnt').innerHTML = this.sectionBrHystorySecondaryContentMobile;
+      } else {
+        document.querySelector('.br-history-se-ctnt').innerHTML = this.sectionBrHystorySecondaryContentDesktop;
+      }
+    });
   }
 
   const templates = new function() {
@@ -253,9 +312,9 @@ const main = () => {
       const swiperPosition = Math.ceil((model.productList.length - model.productsToShow) / 2);
       selectors.brSwiperFocus = model.productList[centralPosition];
       selectors.brSwiperPrev = model.productList[centralPosition - 1];
-      selectors.brSwiperPrev.addEventListener('click', events.onPrevious);
+      selectors.brSwiperPrev.addEventListener('click', events.onPrevious, false);
       selectors.brSwiperNext = model.productList[centralPosition + 1];
-      selectors.brSwiperNext.addEventListener('click', events.onNext);
+      selectors.brSwiperNext.addEventListener('click', events.onNext, false);
       selectors.brSwiperFocus.classList.add('focus');
       selectors.brSwiperPrev.classList.add('prev');      
       selectors.brSwiperNext.classList.add('next');
@@ -313,7 +372,7 @@ const main = () => {
         view.cleanClassAndEvents();
         selectors.brSwiperNext = selectors.brSwiperFocus;
         selectors.brSwiperNext.classList.add('next');
-        selectors.brSwiperNext.addEventListener('click', events.onNext);
+        selectors.brSwiperNext.addEventListener('click', events.onNext, false);
         
         selectors.brSwiperFocus = selectors.brSwiperPrev;
         selectors.brSwiperFocus.classList.add('focus');
@@ -322,7 +381,7 @@ const main = () => {
         if(selectors.brSwiperPrev.previousSibling) {
           selectors.brSwiperPrev = selectors.brSwiperPrev.previousSibling;
           selectors.brSwiperPrev.classList.add('prev');
-          selectors.brSwiperPrev.addEventListener('click', events.onPrevious);
+          selectors.brSwiperPrev.addEventListener('click', events.onPrevious, false);
         }
         view.swipeOne('right');
       }
@@ -332,7 +391,7 @@ const main = () => {
       view.cleanClassAndEvents();
       selectors.brSwiperPrev = selectors.brSwiperFocus;
       selectors.brSwiperPrev.classList.add('prev');
-      selectors.brSwiperPrev.addEventListener('click', events.onPrevious);
+      selectors.brSwiperPrev.addEventListener('click', events.onPrevious, false);
       
       selectors.brSwiperFocus = selectors.brSwiperNext;
       selectors.brSwiperFocus.classList.add('focus');
@@ -341,7 +400,7 @@ const main = () => {
       if(selectors.brSwiperNext.nextSibling) {
         selectors.brSwiperNext = selectors.brSwiperNext.nextSibling;
         selectors.brSwiperNext.classList.add('next');
-        selectors.brSwiperNext.addEventListener('click', events.onNext);
+        selectors.brSwiperNext.addEventListener('click', events.onNext, false);
       }
       view.swipeOne('left');
     }
@@ -365,16 +424,45 @@ const main = () => {
   };
   view.createProductList();
   view.setStartingPosition();
-  window.addEventListener('resize', events.resizeProductAndPosition);
-  selectors.brSwiperContainer.addEventListener('mousedown', events.lock);
-  selectors.brSwiperContainer.addEventListener('touchstart', events.lock);
-  selectors.brSwiperContainer.addEventListener('mouseup', events.move);
-  selectors.brSwiperContainer.addEventListener('touchend', events.move);
-  selectors.brSwiperLeftButton.addEventListener('click', events.onPrevious);
-  selectors.brSwiperRightButton.addEventListener('click', events.onNext);
+  window.addEventListener('resize', events.resizeProductAndPosition, true);
+  selectors.brSwiperContainer.addEventListener('mousedown', events.lock, false);
+  selectors.brSwiperContainer.addEventListener('touchstart', events.lock, false);
+  selectors.brSwiperContainer.addEventListener('mouseup', events.move, false);
+  selectors.brSwiperContainer.addEventListener('touchend', events.move, false);
+  selectors.brSwiperContainer.addEventListener('touchmove', (e) => e.preventDefault, true);
+  selectors.brSwiperLeftButton.addEventListener('click', events.onPrevious, false);
+  selectors.brSwiperRightButton.addEventListener('click', events.onNext, false);
+
+//   let offset = [0];
+//   let isDown = false;
+//   let mousePosition;
+
+//   selectors.brSwiperWrapper.addEventListener('mousedown', function(e) {
+//     isDown = true;
+//     offset = [
+//       selectors.brSwiperWrapper.offsetLeft - e.clientX
+//     ];
+// }, true);
+
+// document.addEventListener('mouseup', function() {
+//     isDown = false;
+// }, true);
+
+// document.addEventListener('mousemove', function(event) {
+//     event.preventDefault();
+//     if (isDown) {
+//         mousePosition = {
+//             x : event.clientX,
+//         };
+//         selectors.brSwiperWrapper.style.left = (mousePosition.x + offset[0]) + 'px';
+//     }
+// }, true);
+
 
 };
 
-loadImages([...myImages,...buildProducts.allProducts]).then((images) => {
-  window.addEventListener('load',main);
+const newLoader = new Loader();
+newLoader.require([...myImages,...buildProducts.allProducts], 
+    function() {
+        window.addEventListener('load',main);
 });
