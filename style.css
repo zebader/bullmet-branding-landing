@@ -29,7 +29,7 @@ body {
 }
 h1{
   font-size: 2em;
-  margin: 30px;
+  margin: 30px auto;
   background-color: white;
   padding:20px;
   font-family: 'Playfair Display', serif;
@@ -596,6 +596,9 @@ footer p{
 footer img{
   width: 120px;
 }
+article.br-history-se-ctnt-mobile {
+  display: none;
+}
 
 @media (max-width: 950px) {
   article.br-history-se-ctnt-block-img-container {
@@ -650,6 +653,12 @@ footer img{
   }
   article.br-history-se-ctnt-block-img-ie{
     width: 400px;
+  }
+  article.br-history-se-ctnt-mobile {
+    display: flex;
+  }
+  article.br-history-se-ctnt-desktop {
+    display: none;
   }
 }
 .animation-start-app {
