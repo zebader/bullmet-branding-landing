@@ -10,6 +10,9 @@
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
   text-align: center;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 body {
   display: -webkit-box;
@@ -148,15 +151,15 @@ article {
   width: 75%;
   margin: 0 auto;
 }
-.loader {
-  -webkit-animation: loading 4s infinite;
-          animation: loading 4s infinite;
-}
 section.br-header{
   height: 75vh;
   background-image: url('img/ron-dictador-1.jpg');
   background-position: center;
   background-size: cover;
+}
+section.br-header img{
+  width: 50%;
+  max-width: 450px;
 }
 article.br-swiper-container{
   margin-left: auto;
@@ -431,8 +434,8 @@ section.br-history h1{
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
-  -webkit-box-shadow: 3px 3px 0px 0px #ececec;
-          box-shadow: 3px 3px 0px 0px #ececec;
+  -webkit-box-shadow: 3px 3px 0px 0px black;
+          box-shadow: 3px 3px 0px 0px black;
 }
 
 article.br-history-full-img{
@@ -440,6 +443,7 @@ article.br-history-full-img{
   background-image: url('img/ron-dictador-2.jpg');
   background-position: center;
   background-size: cover;
+  background-position: right;
   width: 100%;
 }
 article.br-history-ctnt{
@@ -536,6 +540,10 @@ article.br-history-se-ctnt-block-text {
           -webkit-flex-direction: column;
           flex-direction: column;
   position: relative;
+  -webkit-align-self: stretch;
+      -ms-flex-item-align: stretch;
+              -ms-grid-row-align: stretch;
+          align-self: stretch;
 }
 article.br-history-se-ctnt-block-text-ie {
   -webkit-box-orient: vertical;
@@ -546,6 +554,10 @@ article.br-history-se-ctnt-block-text-ie {
   position: relative;
   width: 590px;
   display: inline-block;
+  -webkit-align-self: stretch;
+      -ms-flex-item-align: stretch;
+              -ms-grid-row-align: stretch;
+          align-self: stretch;
 }
 article.br-history-se-ctnt-block-text h2, article.br-history-se-ctnt-block-text-ie h2{
   background-color: black;
@@ -569,6 +581,10 @@ article.br-history-se-ctnt-block-text p, article.br-history-se-ctnt-block-text-i
   border-radius: 30px;
   padding: 75px 40px 40px 40px;
   margin: 30px;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 footer {
   display: -webkit-box;
@@ -609,6 +625,9 @@ article.br-history-se-ctnt-mobile {
 }
 
 @media (max-width: 950px) {
+  section.br-header img{
+    width: 70%;
+  }
   article.br-history-se-ctnt-block-img-container {
     -ms-flex-wrap: wrap;
         -webkit-flex-wrap: wrap;
@@ -684,17 +703,22 @@ article.br-history-se-ctnt-mobile {
   0%   { opacity: 0; }
   100% { opacity: 1; }
 }
-.animation-loading {
-  -webkit-animation: loading 4s infinite;
-          animation: loading 4s infinite;
+
+.animation-showleft {
+  position: absolute;
+  -webkit-animation: showleft 2s forwards;
+          animation: showleft 2s forwards;
+          -webkit-transform:translateX(-50%);
+              -ms-transform:translateX(-50%);
+                  transform:translateX(-50%);
 }
-@-webkit-keyframes loading {
-  0%   { -webkit-transform:rotateY(0deg); transform:rotateY(0deg); }
-  50% { -webkit-transform:rotateY(360deg); transform:rotateY(360deg); }
-  100% { -webkit-transform:rotateY(0deg); transform:rotateY(0deg); }
+@-webkit-keyframes showleft {
+  0%   { opacity: 0; left:0; }
+  50%   { opacity: 0; left:25%; }
+  100% { opacity: 1; left:50%; }
 }
-@keyframes loading {
-  0%   { -webkit-transform:rotateY(0deg); transform:rotateY(0deg); }
-  50% { -webkit-transform:rotateY(360deg); transform:rotateY(360deg); }
-  100% { -webkit-transform:rotateY(0deg); transform:rotateY(0deg); }
+@keyframes showleft {
+  0%   { opacity: 0; left:0; }
+  50%   { opacity: 0; left:25%; }
+  100% { opacity: 1; left:50%; }
 }
