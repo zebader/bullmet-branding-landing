@@ -475,7 +475,10 @@ article.br-history-se-ctnt-block{
           flex-direction: row;
   max-width: 1200px;
   padding-top: 50px;
-  align-items: flex-start;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 article.br-history-se-ctnt-block-ie{
   display: block;
@@ -500,6 +503,10 @@ article.br-history-se-ctnt-block-img{
   overflow: hidden;
   position: relative;
   width: 100%;
+  border: 10px solid;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 article.br-history-se-ctnt-block-img img{
   position: absolute;
@@ -656,6 +663,9 @@ article.br-history-se-ctnt-mobile {
     width: 400px;
   }
   article.br-history-se-ctnt-mobile {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
   }
   article.br-history-se-ctnt-desktop {
