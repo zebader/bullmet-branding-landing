@@ -154,7 +154,7 @@ article {
 }
 section.br-header{
   height: 75vh;
-  background-image: url('img/header.jpg');
+  background-image: url('img/ron-dictador-1.jpg');
   background-position: center;
   background-size: cover;
 }
@@ -437,7 +437,7 @@ section.br-history h1{
 
 article.br-history-full-img{
   height: 75vh;
-  background-image: url('img/history-header.jpg');
+  background-image: url('img/ron-dictador-2.jpg');
   background-position: center;
   background-size: cover;
   width: 100%;
@@ -475,6 +475,7 @@ article.br-history-se-ctnt-block{
           flex-direction: row;
   max-width: 1200px;
   padding-top: 50px;
+  align-items: flex-start;
 }
 article.br-history-se-ctnt-block-ie{
   display: block;
