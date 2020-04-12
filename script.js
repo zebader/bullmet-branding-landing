@@ -20,7 +20,8 @@ var main = function main() {
     this.brSwiperLeftButton = this.brSwiperContainer.querySelector('.left-button');
     this.brSwiperRightButton = this.brSwiperContainer.querySelector('.right-button');
     this.brSwiperWrapper = this.brSwiperContainer.querySelector('.br-swiper-wrapper');
-    this.brSwiperProductInfo = this.brSwiperContainer.querySelector('.br-swipe-product-info p');
+    this.brSwiperProductInfo = this.brSwiperContainer.querySelector('.br-swipe-product-info-title');
+    this.brSwiperProductPrize = this.brSwiperContainer.querySelector('.br-swipe-product-info-prize');
     this.brSwiperProductCTA = this.brSwiperContainer.querySelector('.br-swipe-product-info a');
     this.brSwiperFocus;
     this.brSwiperNext;
@@ -80,8 +81,10 @@ var main = function main() {
 
     this.createProductCTA = function (selector) {
       var productInfo = selector.getAttribute('data-product');
+      var productPrize = selector.getAttribute('data-prize');
       var productLink = selector.querySelector('a').getAttribute('href');
       selectors.brSwiperProductInfo.innerHTML = productInfo;
+      selectors.brSwiperProductPrize.innerHTML = productPrize;
       selectors.brSwiperProductCTA.setAttribute('href', productLink);
     };
 
@@ -258,9 +261,13 @@ var mainIe = function mainIe() {
         var productContainer = product.querySelector('a');
         var button = document.createElement("button");
         var p = document.createElement("p");
+        var pPrize = document.createElement("p");
+        pPrize.classList.add('br-swipe-product-info-prize-ie');
         button.innerHTML = "VER YA";
         p.innerHTML = product.getAttribute('data-product');
+        pPrize.innerHTML = product.getAttribute('data-prize');
         productContainer.appendChild(p);
+        productContainer.appendChild(pPrize);
         productContainer.appendChild(button);
       });
     };

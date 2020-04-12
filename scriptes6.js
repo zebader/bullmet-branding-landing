@@ -8,7 +8,8 @@ const main = () => {
     this.brSwiperLeftButton = this.brSwiperContainer.querySelector('.left-button');    
     this.brSwiperRightButton = this.brSwiperContainer.querySelector('.right-button');    
     this.brSwiperWrapper = this.brSwiperContainer.querySelector('.br-swiper-wrapper');
-    this.brSwiperProductInfo = this.brSwiperContainer.querySelector('.br-swipe-product-info p');
+    this.brSwiperProductInfo = this.brSwiperContainer.querySelector('.br-swipe-product-info-title');
+    this.brSwiperProductPrize = this.brSwiperContainer.querySelector('.br-swipe-product-info-prize');
     this.brSwiperProductCTA = this.brSwiperContainer.querySelector('.br-swipe-product-info a');
     this.brSwiperFocus; 
     this.brSwiperNext; 
@@ -60,8 +61,10 @@ const main = () => {
     };
     this.createProductCTA = (selector) => {
       const productInfo = selector.getAttribute('data-product');
+      const productPrize = selector.getAttribute('data-prize');
       const productLink = selector.querySelector('a').getAttribute('href');
       selectors.brSwiperProductInfo.innerHTML = productInfo;
+      selectors.brSwiperProductPrize.innerHTML = productPrize;
       selectors.brSwiperProductCTA.setAttribute('href', productLink );
     };
     this.cleanClassAndEvents = () => {
@@ -212,9 +215,13 @@ const mainIe = () => {
         const productContainer = product.querySelector('a');
         var button = document.createElement("button");
         var p = document.createElement("p");
+        var pPrize = document.createElement("p");
+        pPrize.classList.add('br-swipe-product-info-prize-ie');
         button.innerHTML = "VER YA";
         p.innerHTML = product.getAttribute('data-product');
+        pPrize.innerHTML = product.getAttribute('data-prize');
         productContainer.appendChild(p);
+        productContainer.appendChild(pPrize);
         productContainer.appendChild(button);
       })
     }

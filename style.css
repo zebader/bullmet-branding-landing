@@ -275,6 +275,16 @@ article.br-swipe-product-info{
           -webkit-flex-direction: column;
           flex-direction: column;
 }
+article.br-swipe-product-info p.br-swipe-product-info-prize{
+  padding-top: 0;
+  font-size: 1.5em;
+}
+p.br-swipe-product-info-prize-ie{
+  padding-top: 0;
+  font-size: 1.5em;
+  text-align: center;
+  text-decoration: none;
+}
 article.br-swipe-product-info button{
   border: 1px solid;
   padding: 15px 40px;
@@ -511,6 +521,7 @@ article.br-history-se-ctnt-block-img{
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
+  background-color: black;
 }
 article.br-history-se-ctnt-block-img img{
   position: absolute;
