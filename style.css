@@ -512,12 +512,10 @@ article.br-history-se-ctnt-block-img-container-ie{
 }
 
 article.br-history-se-ctnt-block-img{
-  background-position: center;
-  background-size: cover;
   overflow: hidden;
   position: relative;
   width: 100%;
-  border: 10px solid;
+  border: 10px solid black;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
