@@ -87,6 +87,7 @@ img {
   -o-user-select: none;
   -ms-user-select: none;
       user-select: none;
+      content: "";
   }
 main {
   display: -webkit-box;
@@ -502,6 +503,7 @@ article.br-history-se-ctnt-block-ie{
 }
 article.br-history-se-ctnt-block-img-container{
   width: 100%;
+  background-attachment: fixed;
 }
 
 article.br-history-se-ctnt-block-img-container-ie{
@@ -516,10 +518,8 @@ article.br-history-se-ctnt-block-img{
   position: relative;
   width: 100%;
   border: 10px solid black;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
   background-color: black;
+  background-attachment: fixed;
 }
 article.br-history-se-ctnt-block-img img{
   position: absolute;
