@@ -30,7 +30,7 @@ body {
           justify-content: space-between;
   min-height: 100vh;
 }
-h1{
+h1, h2{
   font-size: 2em;
   margin: 30px auto;
   background-color: white;
@@ -41,7 +41,7 @@ h1{
   -webkit-box-shadow: 3px 3px 0px 0px black;
           box-shadow: 3px 3px 0px 0px black;
 }
-h2{
+h3{
   font-size: 1.5em;
   margin: 30px;
   background-color: white;
@@ -181,6 +181,19 @@ article.br-swiper-container{
         -ms-flex-direction: column;
             -webkit-flex-direction: column;
             flex-direction: column;
+}
+section.br-swiper h1.br-swiper-title{
+  background: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  margin: 20px auto 0;
+  padding: 0;
+  font-size: 4em;
+  position: relative;
+  top: 30px;
+}
+section.br-swiper h2{
+  margin: 0 auto;
 }
 article.br-swiper-container-ie{
   margin-left: auto;
@@ -436,7 +449,7 @@ section.br-history{
   position: relative;
   padding-top: 50px;
 }
-section.br-history h1{
+section.br-history h1, section.br-history h2{
   margin: 0;
   position: absolute;
   top: 0px;
@@ -503,7 +516,7 @@ article.br-history-se-ctnt-block-ie{
 }
 article.br-history-se-ctnt-block-img-container{
   width: 100%;
-  background-attachment: fixed;
+  border: 10px solid black;
 }
 
 article.br-history-se-ctnt-block-img-container-ie{
@@ -517,9 +530,6 @@ article.br-history-se-ctnt-block-img{
   overflow: hidden;
   position: relative;
   width: 100%;
-  border: 10px solid black;
-  background-color: black;
-  background-attachment: fixed;
 }
 article.br-history-se-ctnt-block-img img{
   position: absolute;
@@ -568,7 +578,7 @@ article.br-history-se-ctnt-block-text-ie {
               -ms-grid-row-align: stretch;
           align-self: stretch;
 }
-article.br-history-se-ctnt-block-text h2, article.br-history-se-ctnt-block-text-ie h2{
+article.br-history-se-ctnt-block-text h3, article.br-history-se-ctnt-block-text-ie h3{
   background-color: black;
   color: white;
   margin: 0;
@@ -637,6 +647,10 @@ article.br-history-se-ctnt-mobile {
   section.br-header img{
     width: 70%;
   }
+  section.br-swiper h1.br-swiper-title{
+    font-size: 3em;
+    top:20px;
+  }
   article.br-history-se-ctnt-block-img-container {
     -ms-flex-wrap: wrap;
         -webkit-flex-wrap: wrap;
@@ -659,6 +673,10 @@ article.br-history-se-ctnt-mobile {
   }
   article {
     width: 100%;
+  }
+  section.br-swiper h1.br-swiper-title{
+    font-size: 2.5em;
+    top:18px;
   }
   article.br-history-ctnt p{
     width: 90%;
@@ -687,6 +705,9 @@ article.br-history-se-ctnt-mobile {
   article.br-history-se-ctnt-block-text-ie {
     width: 400px;
   }
+  article.br-history-se-ctnt-block-img-container {
+    border: 5px solid black;
+}
   article.br-history-se-ctnt-block-img-ie{
     width: 400px;
   }
