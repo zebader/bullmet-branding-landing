@@ -234,15 +234,15 @@ div.left-button{
 }
 div.left-button:hover{
   opacity: 1;
-  -webkit-transform: translateX(10px) rotate(180deg) scale(1.1);
-      -ms-transform: translateX(10px) rotate(180deg) scale(1.1);
-          transform: translateX(10px) rotate(180deg) scale(1.1);
+  -webkit-transform: translate(10px,-50%) rotate(180deg) scale(1.1);
+      -ms-transform: translate(10px,-50%) rotate(180deg) scale(1.1);
+          transform: translate(10px,-50%) rotate(180deg) scale(1.1);
 }
 div.right-button:hover{
   opacity: 1;
-  -webkit-transform: translateX(-60px) scale(1.1);
-      -ms-transform: translateX(-60px) scale(1.1);
-          transform: translateX(-60px) scale(1.1);
+  -webkit-transform: translate(-60px, -50%) scale(1.1);
+      -ms-transform: translate(-60px, -50%) scale(1.1);
+          transform: translate(-60px, -50%) scale(1.1);
 }
 div.right-button{
   left:100%;
@@ -535,6 +535,11 @@ article.br-history-se-ctnt-block-img{
 article.br-history-se-ctnt-block-img img{
   position: absolute;
   width: auto;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  left: -50%;
 }
 
 article.br-history-se-ctnt-block-img-ie{
