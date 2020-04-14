@@ -87,7 +87,6 @@ img {
   -o-user-select: none;
   -ms-user-select: none;
       user-select: none;
-      content: "";
   }
 main {
   display: -webkit-box;
