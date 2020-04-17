@@ -548,6 +548,7 @@ article.br-history-se-ctnt-block-img{
 article.br-history-se-ctnt-block-img img {
   position: absolute;
   width: 100%;
+  left: 0;
 }
 
 article.br-history-se-ctnt-block-img-ie{
