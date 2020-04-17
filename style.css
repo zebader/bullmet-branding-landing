@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Barlow|Barlow+Condensed:900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Barlow|Barlow+Condensed:700&display=swap');
 *{
   margin: 0;
 	padding: 0;
@@ -50,7 +50,7 @@ h3{
   display: table;
 }
 p{
-  font-size: 1em;
+  font-size: 1.2em;
   text-align: left;
   padding:20px;
   line-height: 1.5;
@@ -155,7 +155,10 @@ section.br-header{
   height: 75vh;
   background-image: url('img/auchentoshan-whiky-header.jpg');
   background-position: center;
-  background-size: cover;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #010101;
 }
 section.br-header img{
   width: 50%;
@@ -304,7 +307,8 @@ article.br-swipe-product-info button{
   background-color: #ff4200;
   border-radius: 20px;
   color: white;
-  padding: 15px 40px;
+  padding: 20px 50px;
+  font-size: 1.5em;
 }
 article.br-swipe-product-info button:hover{
   -webkit-transform:scale(1.1) translateY(-5px);
@@ -470,7 +474,7 @@ article.br-history-full-img{
   background-image: url('img/auchentoshan-whisky-historia.jpg');
   background-position: center;
   background-size: cover;
-  background-position: right;
+  background-position: center;
   width: 100%;
 }
 article.br-history-ctnt{
@@ -488,6 +492,13 @@ article.br-history-ctnt p{
   width: 75%;
   color: white;
 }
+
+article.br-history-ctnt p span{
+  color: white;
+  background-color: #ff4301;
+  padding: 3px;
+}
+
 article.br-history-se-ctnt{
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -534,14 +545,9 @@ article.br-history-se-ctnt-block-img{
   position: relative;
   width: 100%;
 }
-article.br-history-se-ctnt-block-img img{
+article.br-history-se-ctnt-block-img img {
   position: absolute;
-  width: auto;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
-  left: -50%;
+  width: 100%;
 }
 
 article.br-history-se-ctnt-block-img-ie{
@@ -676,6 +682,9 @@ article.br-history-se-ctnt-mobile {
   h1, h2 {
     font-size: 1.3em;
   }
+  section.br-header{
+    background-image: url('img/auchentoshan-whiky-header-mobile.jpg');
+  }
   div.left-button, div.right-button{
     display: none;
   }
@@ -740,23 +749,4 @@ article.br-history-se-ctnt-mobile {
 @keyframes start-app {
   0%   { opacity: 0; }
   100% { opacity: 1; }
-}
-
-.animation-showleft {
-  position: absolute;
-  -webkit-animation: showleft 2s forwards;
-          animation: showleft 2s forwards;
-          -webkit-transform:translateX(-50%);
-              -ms-transform:translateX(-50%);
-                  transform:translateX(-50%);
-}
-@-webkit-keyframes showleft {
-  0%   { opacity: 0; left:0; }
-  50%   { opacity: 0; left:25%; }
-  100% { opacity: 1; left:50%; }
-}
-@keyframes showleft {
-  0%   { opacity: 0; left:0; }
-  50%   { opacity: 0; left:25%; }
-  100% { opacity: 1; left:50%; }
 }
