@@ -293,6 +293,9 @@ article.br-swipe-product-info{
           -webkit-flex-direction: column;
           flex-direction: column;
 }
+article.br-swipe-product-info p{
+  text-align: center;
+}
 article.br-swipe-product-info p.br-swipe-product-info-prize{
   padding-top: 0;
   font-size: 1.5em;
@@ -679,7 +682,7 @@ article.br-history-se-ctnt-mobile {
   }
 }
 
-@media (max-width: 750px) {
+@media (max-width: 780px) {
   h1, h2 {
     font-size: 1.3em;
   }
