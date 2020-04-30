@@ -157,7 +157,7 @@ section.br-header{
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: #010101;
+  background-color: #070707;
 }
 section.br-header img{
   width: 50%;
@@ -731,7 +731,7 @@ article.br-history-se-ctnt-mobile {
     width: 400px;
   }
   article.br-history-se-ctnt-block-img-container {
-    border: 5px solid #333;
+    border: 5px solid #1d1006;
 }
   article.br-history-se-ctnt-block-img-ie{
     width: 400px;
