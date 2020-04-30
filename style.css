@@ -154,8 +154,8 @@ section.br-header{
   height: 75vh;
   background-image: url('img/brugal-ron-gama-premium.jpg');
   background-position: center;
-  background-size: cover;
-  background-position: top;
+  background-size: contain;
+  background-position: center;
   background-repeat: no-repeat;
   background-color: #010101;
 }
@@ -661,6 +661,10 @@ article.br-history-se-ctnt-mobile {
 }
 
 @media (max-width: 950px) {
+  section.br-header{
+    height: 75vh;
+    background-size: cover;
+  }
   section.br-header img{
     width: 70%;
   }
@@ -693,6 +697,7 @@ article.br-history-se-ctnt-mobile {
   }
   section.br-header{
     height: 50vh;
+    background-size: cover;
   }
   section.br-swiper h1.br-swiper-title{
     font-size: 2.5em;
