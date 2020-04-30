@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Barlow|Barlow+Condensed:700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lustria|Source+Sans+Pro:400,900&display=swap');
 *{
   margin: 0;
 	padding: 0;
@@ -7,7 +7,7 @@
 	font: inherit;
   vertical-align: baseline;
   color: #333;
-  font-family: 'Barlow', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-weight: 300;
   text-align: center;
   box-sizing: border-box;
@@ -31,22 +31,20 @@ body {
   min-height: 100vh;
 }
 h1, h2{
-  font-size: 2em;
+  font-size: 1.8em;
   margin: 30px auto;
-  background-color: white;
-  padding:20px;
-  font-family: 'Barlow Condensed', sans-serif;
+  color: white;
+  background-color: #002856;
+  padding:20px 30px;
+  font-family: 'Lustria', serif;
   display: table;
-  border-radius: 5px;
-  -webkit-box-shadow: 3px 3px 0px 0px #333;
-          box-shadow: 3px 3px 0px 0px #333;
 }
 h3{
-  font-size: 1.5em;
+  font-size: 1.3em;
   margin: 30px;
-  background-color: white;
-  padding:20px;
-  font-family: 'Barlow Condensed', sans-serif;
+  background-color: #002856;
+  padding:20px 30px;
+  font-family: 'Lustria', serif;
   display: table;
 }
 p{
@@ -72,6 +70,7 @@ button {
   -o-transition: all 300ms;
   transition: all 300ms;
   cursor: pointer;
+  font-family: 'Lustria', serif;
 }
 button:hover{
   -webkit-transform:scale(1.1);
@@ -153,10 +152,10 @@ article {
 }
 section.br-header{
   height: 75vh;
-  background-image: url('img/auchentoshan-whiky-header.jpg');
+  background-image: url('img/brugal-ron-gama-premium.jpg');
   background-position: center;
-  background-size: contain;
-  background-position: center;
+  background-size: cover;
+  background-position: top;
   background-repeat: no-repeat;
   background-color: #010101;
 }
@@ -187,12 +186,14 @@ article.br-swiper-container{
 section.br-swiper h1.br-swiper-title{
   background: none;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   margin: 20px auto 0;
   padding: 0;
   font-size: 3.5em;
   position: relative;
-  top: 30px;
+  top: 15px;
+  background-color: #af9752;
+  padding: 0px 30px;
 }
 section.br-swiper h2{
   margin: 0 auto;
@@ -307,8 +308,7 @@ p.br-swipe-product-info-prize-ie{
   text-decoration: none;
 }
 article.br-swipe-product-info button{
-  background-color: #ff4200;
-  border-radius: 20px;
+  background-color: #af9751;
   color: white;
   padding: 20px 50px;
   font-size: 1.5em;
@@ -464,17 +464,14 @@ section.br-history h1, section.br-history h2{
   position: absolute;
   top: 0px;
   left: 50%;
-  border-radius: 5px;
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
-  -webkit-box-shadow: 3px 3px 0px 0px #333;
-          box-shadow: 3px 3px 0px 0px #333;
 }
 
 article.br-history-full-img{
   height: 75vh;
-  background-image: url('img/auchentoshan-whisky-historia.jpg');
+  background-image: url('img/brugal-ron-barrica-1888.jpg');
   background-position: center;
   background-size: cover;
   background-position: center;
@@ -486,7 +483,7 @@ article.br-history-ctnt{
       -ms-flex-direction: column;
           -webkit-flex-direction: column;
           flex-direction: column;
-  background: #333;
+  background: #1d1006;
   width: 100%;
   padding: 30px 0px;
 }
@@ -498,7 +495,7 @@ article.br-history-ctnt p{
 
 article.br-history-ctnt p span{
   color: white;
-  background-color: #ff4301;
+  background-color: #af9751;
   padding: 3px;
 }
 
@@ -533,7 +530,7 @@ article.br-history-se-ctnt-block-ie{
 }
 article.br-history-se-ctnt-block-img-container{
   width: 100%;
-  border: 10px solid #333;
+  border: 10px solid #1d1006;
 }
 
 article.br-history-se-ctnt-block-img-container-ie{
@@ -597,18 +594,15 @@ article.br-history-se-ctnt-block-text-ie {
           align-self: stretch;
 }
 article.br-history-se-ctnt-block-text h3, article.br-history-se-ctnt-block-text-ie h3{
-  background-color: #333;
+  background-color: #002856;
   color: white;
   margin: 0;
   position: absolute;
-  border-radius: 5px;
   top: 0;
   left: 50%;
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
-  -webkit-box-shadow: 3px 3px 0px 0px #ececec;
-          box-shadow: 3px 3px 0px 0px #ececec;
 }
 
 article.br-history-se-ctnt-block-text p, article.br-history-se-ctnt-block-text-ie p{
@@ -622,6 +616,11 @@ article.br-history-se-ctnt-block-text p, article.br-history-se-ctnt-block-text-i
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
+}
+article.br-history-se-ctnt-block-text p span, article.br-history-se-ctnt-block-text-ie p span{
+  color: white;
+  background-color: #af9751;
+  padding: 3px 10px;
 }
 footer {
   display: -webkit-box;
@@ -686,14 +685,14 @@ article.br-history-se-ctnt-mobile {
   h1, h2 {
     font-size: 1.3em;
   }
-  section.br-header{
-    background-image: url('img/auchentoshan-whiky-header-mobile.jpg');
-  }
   div.left-button, div.right-button{
     display: none;
   }
   article {
     width: 100%;
+  }
+  section.br-header{
+    height: 50vh;
   }
   section.br-swiper h1.br-swiper-title{
     font-size: 2.5em;
