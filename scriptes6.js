@@ -20,7 +20,7 @@ const main = () => {
     this.swiperMainPosition = 0;
     this.containerWidth = 0;
     this.productWidth = 0;
-    this.productsToShow = 5;
+    this.productsToShow = 3;
     this.productList = [];
     this.lockPosition = 0;
   };
@@ -98,7 +98,7 @@ const main = () => {
         view.setStartingPosition()
       } else if ((e.target.innerWidth > 750)) {
         view.resetClasses();
-        model.productsToShow = 5;
+        model.productsToShow = 3;
         view.setStartingPosition()
       };
       const previousWidth = model.productWidth;
