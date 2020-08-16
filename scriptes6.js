@@ -229,9 +229,62 @@ const mainIe = () => {
   view.addIeTemplate();
 };
 
-if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
-  window.addEventListener('load',mainIe);
-}
-else if (!/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
-  window.addEventListener('load',main);
-}
+const mainNoSwiper = () => {
+  const selectors = new function() {
+    this.page = document.querySelector('body');
+    this.brSwiperContainer = this.page.querySelectorAll('.br-swiper-container');
+    this.brSwiperWrapper = this.page.querySelectorAll('.br-swiper-wrapper');
+    this.brSwiperDefault = this.page.querySelectorAll('.default');
+    this.brSwiperProductInfo = this.page.querySelector('.br-swipe-product-info');
+    this.brLeftButton = this.page.querySelector('.left-button');
+    this.brRightButton = this.page.querySelector('.right-button');   
+  }
+  const view = new function() {
+    this.addIeTemplate = () => {
+      selectors.brLeftButton.style.display = 'none'; 
+      selectors.brRightButton.style.display = 'none'; 
+      selectors.brSwiperProductInfo.style.display = 'none'; 
+      this.toggleIeClasses(selectors.brSwiperContainer, 'br-swiper-container',);
+      this.toggleIeClasses(selectors.brSwiperWrapper, 'br-swiper-wrapper', );
+      this.toggleIeClasses(selectors.brSwiperDefault, 'default' );
+      this.addProductCTA();
+    }
+    this.toggleIeClasses = (selectorsNode, className) => {
+      const selectorsListToArray = Array.apply(null, selectorsNode);
+      selectorsListToArray.forEach((e) => {
+        e.className = "";
+        e.classList.add(`${className}-ie`);
+      });
+    }
+    this.addProductCTA = () => {
+      const productList = document.querySelectorAll('.default-ie');
+      const productListToArray = Array.apply(null, productList);
+      productListToArray.forEach((product) => {
+        const productContainer = product.querySelector('a');
+        var button = document.createElement("button");
+        var p = document.createElement("p");
+        var pPrize = document.createElement("p");
+        pPrize.classList.add('br-swipe-product-info-prize-ie');
+        button.innerHTML = "VER YA";
+        p.innerHTML = product.getAttribute('data-product');
+        pPrize.innerHTML = product.getAttribute('data-prize');
+        productContainer.appendChild(p);
+        productContainer.appendChild(pPrize);
+        productContainer.appendChild(button);
+      })
+    }
+  };
+  view.addIeTemplate();
+};
+
+document.addEventListener("DOMContentLoaded", function(e) {
+  if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+    window.addEventListener('load',mainIe);
+  }
+  else if (!/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+    const swiperElements = document.getElementsByClassName('default').length
+    if (swiperElements <= 2) window.addEventListener('load',mainNoSwiper);
+    else window.addEventListener('load',main);
+    
+  }
+});
